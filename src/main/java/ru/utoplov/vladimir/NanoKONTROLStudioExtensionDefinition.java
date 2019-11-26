@@ -1,18 +1,33 @@
 package ru.utoplov.vladimir;
-import java.util.UUID;
 
 import com.bitwig.extension.api.PlatformType;
 import com.bitwig.extension.controller.AutoDetectionMidiPortNamesList;
 import com.bitwig.extension.controller.ControllerExtensionDefinition;
 import com.bitwig.extension.controller.api.ControllerHost;
+import ru.utoplov.vladimir.scenes.SceneView;
+import ru.utoplov.vladimir.scenes.VelocityView;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class NanoKONTROLStudioExtensionDefinition extends ControllerExtensionDefinition
 {
    private static final UUID DRIVER_ID = UUID.fromString("dc010196-7101-4519-ad10-ab5634f76da5");
 
+   public final static int BUTTON_STOP_TO_PLAY_MARKER = 62;
    public final static int BUTTON_STOP = 63;
    public final static int BUTTON_PLAY = 80;
-   
+
+   // Scene button values
+   public final static Map<String, SceneView> SysexHandlers = new HashMap<String, SceneView>() {{
+      put("f042400001370200004f00f7", new VelocityView());
+      put("f042400001370200004f01f7", new VelocityView());
+      put("f042400001370200004f02f7", new VelocityView());
+      put("f042400001370200004f03f7", new VelocityView());
+      put("f042400001370200004f04f7", new VelocityView());
+   }};
+
    public NanoKONTROLStudioExtensionDefinition()
    {
    }
