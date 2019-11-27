@@ -15,6 +15,48 @@ public class NanoKONTROLStudioExtensionDefinition extends ControllerExtensionDef
 {
    private static final UUID DRIVER_ID = UUID.fromString("dc010196-7101-4519-ad10-ab5634f76da5");
 
+   // Cycle button used as shift. Press'n'Hold to use.
+   public final static int BUTTON_SHIFT = 0;
+
+   public final static int BUTTON_SOLO_1 = 0;
+   public final static int BUTTON_SOLO_2 = 0;
+   public final static int BUTTON_SOLO_3 = 0;
+   public final static int BUTTON_SOLO_4 = 0;
+   public final static int BUTTON_SOLO_5 = 0;
+   public final static int BUTTON_SOLO_6 = 0;
+   public final static int BUTTON_SOLO_7 = 0;
+   public final static int BUTTON_SOLO_8 = 0;
+
+   public final static int BUTTON_MUTE_1 = 0;
+   public final static int BUTTON_MUTE_2 = 0;
+   public final static int BUTTON_MUTE_3 = 0;
+   public final static int BUTTON_MUTE_4 = 0;
+   public final static int BUTTON_MUTE_5 = 0;
+   public final static int BUTTON_MUTE_6 = 0;
+   public final static int BUTTON_MUTE_7 = 0;
+   public final static int BUTTON_MUTE_8 = 0;
+
+   public final static int BUTTON_RECORD_1 = 0;
+   public final static int BUTTON_RECORD_2 = 0;
+   public final static int BUTTON_RECORD_3 = 0;
+   public final static int BUTTON_RECORD_4 = 0;
+   public final static int BUTTON_RECORD_5 = 0;
+   public final static int BUTTON_RECORD_6 = 0;
+   public final static int BUTTON_RECORD_7 = 0;
+   public final static int BUTTON_RECORD_8 = 0;
+
+   public final static int BUTTON_SELECT_1 = 0;
+   public final static int BUTTON_SELECT_2 = 0;
+   public final static int BUTTON_SELECT_3 = 0;
+   public final static int BUTTON_SELECT_4 = 0;
+   public final static int BUTTON_SELECT_5 = 0;
+   public final static int BUTTON_SELECT_6 = 0;
+   public final static int BUTTON_SELECT_7 = 0;
+   public final static int BUTTON_SELECT_8 = 0;
+
+   public final static int BUTTON_NEXT_TRACK_BANK = 0;
+   public final static int BUTTON_PREV_TRACK_BANK = 0;
+
    public final static int BUTTON_STOP_TO_PLAY_MARKER = 62;
    public final static int BUTTON_STOP = 63;
    public final static int BUTTON_PLAY = 80;
