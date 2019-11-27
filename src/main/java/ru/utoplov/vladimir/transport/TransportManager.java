@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TransportManager {
+
     private final Transport transport;
 
     public TransportManager(ControllerHost host) {
@@ -16,20 +17,28 @@ public class TransportManager {
     }
 
     private final Map<Integer, TransportCommand> handlers = new HashMap<Integer, TransportCommand>() {{
-        put(NanoKONTROLStudioExtensionDefinition.BUTTON_STOP_TO_PLAY_MARKER, new StopToPlayMarker());
-        put(NanoKONTROLStudioExtensionDefinition.BUTTON_STOP, new Stop());
-        put(NanoKONTROLStudioExtensionDefinition.BUTTON_PLAY, new Play());
+        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_BACKWARD, new Backward());
+        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_FAST_FORWARD, new FastForward());
+        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_REWIND, new Rewind());
+        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_STOP, new Stop());
+        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_PLAY, new Play());
+        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_RECORD, new Record());
     }};
 
-    public boolean execute(ShortMidiMessage msg) {
+    public boolean execute(ShortMidiMessage msg, boolean useShift) {
         if (msg.getData2() != 0) {
             return false;
         }
         TransportCommand command = handlers.get(msg.getData1());
         if (command != null) {
-            command.execute(transport);
+            command.execute(transport, useShift);
             return true;
         }
         return false;
     }
+
+    public boolean isValidCommand(ShortMidiMessage msg) {
+        return handlers.keySet().stream().anyMatch(code -> msg.getData1() == code);
+    }
+
 }

@@ -1,8 +1,8 @@
 package ru.utoplov.vladimir.scenes;
 
-public class VelocityView implements SceneView {
+public class StubView implements SceneView {
     @Override
     public String getName() {
-        return "Velocity";
+        return "STUB :)";
     }
 }

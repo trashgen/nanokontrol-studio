@@ -9,20 +9,18 @@ import ru.utoplov.vladimir.trackbank.TrackBankManager;
 import ru.utoplov.vladimir.transport.TransportManager;
 
 public class NanoKONTROLStudioExtension extends ControllerExtension {
-    // TODO : Add values
-    private final static String[] ins = {""};
-    private final static String[] outs = {""};
 
     private TrackBankManager trackBankManager;
     private TransportManager transportManager;
 
-    protected NanoKONTROLStudioExtension(final NanoKONTROLStudioExtensionDefinition definition, final ControllerHost host) {
+    public static SceneView currentView;
+
+    NanoKONTROLStudioExtension(final NanoKONTROLStudioExtensionDefinition definition, final ControllerHost host) {
         super(definition, host);
     }
 
     @Override
     public void init() {
-        getHost().addDeviceNameBasedDiscoveryPair(ins, outs);
         getHost().getMidiInPort(0).setMidiCallback((ShortMidiMessageReceivedCallback) this::onMidi0);
         getHost().getMidiInPort(0).setSysexCallback(this::onSysex0);
 
@@ -37,8 +35,11 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
      */
     private void onMidi0(ShortMidiMessage msg) {
         getHost().showPopupNotification(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
-        transportManager.execute(msg);
-        trackBankManager.execute(msg);
+        if (transportManager.isValidCommand(msg)) {
+            transportManager.execute(msg, useShift(msg));
+        } else if (trackBankManager.isValidCommand(msg)) {
+            trackBankManager.execute(msg, useShift(msg));
+        }
     }
 
     @Override
@@ -57,8 +58,13 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
     private void onSysex0(final String data) {
         SceneView view = NanoKONTROLStudioExtensionDefinition.SysexHandlers.get(data);
         if (view != null) {
+            currentView = view;
             getHost().showPopupNotification(String.format("Set mode [%s]", view.getName()));
         }
+    }
+
+    private boolean useShift(ShortMidiMessage msg) {
+        return msg.getData1() == NanoKONTROLStudioExtensionDefinition.BUTTON_SHIFT && msg.getData2() == 127;
     }
 
 }

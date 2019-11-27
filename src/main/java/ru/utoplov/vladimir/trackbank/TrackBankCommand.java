@@ -1,7 +1,8 @@
 package ru.utoplov.vladimir.trackbank;
 
+import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.controller.api.TrackBank;
 
 public interface TrackBankCommand {
-    void execute(TrackBank trackBank);
+    void execute(ShortMidiMessage msg, TrackBank trackBank, boolean useShift);
 }
