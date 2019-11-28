@@ -34,7 +34,7 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
      * Called when we receive short MIDI message on port 0.
      */
     private void onMidi0(ShortMidiMessage msg) {
-        getHost().showPopupNotification(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
+//        getHost().showPopupNotification(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
         if (transportManager.isValidCommand(msg)) {
             transportManager.execute(msg, useShift(msg));
         } else if (trackBankManager.isValidCommand(msg)) {
