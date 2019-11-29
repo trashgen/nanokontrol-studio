@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir.trackbank;
+package ru.utoplov.vladimir.masic.trackbank;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.controller.api.*;
@@ -63,7 +63,8 @@ public class TrackBankManager {
         cursorTrack = host.createCursorTrack(CURSOR_TRACK_ID, CURSOR_TRACK_NAME, 0, 0, true);
         cursorTrack.name().markInterested();
         trackBank.followCursorTrack(cursorTrack);
-        effectTracks = cursorTrack.createEffectTrackBank(8, 8, true);
+        // TODO : Test this numTracks == 1. Maybe Just one Track Sends are marked ?
+        effectTracks = cursorTrack.createEffectTrackBank(1, 8, true);
         for (int i = 0; i < effectTracks.getSizeOfBank(); i++) {
             effectTracks.getItemAt(i).name().markInterested();
         }
@@ -85,10 +86,7 @@ public class TrackBankManager {
     }
 
     public boolean execute(ShortMidiMessage msg, boolean useShift) {
-        boolean isCC = Arrays
-                .stream(new Integer[]{BUTTON_FADER_1, BUTTON_FADER_2, BUTTON_FADER_3, BUTTON_FADER_4, BUTTON_FADER_5, BUTTON_FADER_6, BUTTON_FADER_7, BUTTON_FADER_8, BUTTON_KNOB_1, BUTTON_KNOB_2, BUTTON_KNOB_3, BUTTON_KNOB_4, BUTTON_KNOB_5, BUTTON_KNOB_6, BUTTON_KNOB_7, BUTTON_KNOB_8})
-                .anyMatch(code -> msg.getData1() == code);
-        if (!isCC && msg.getData2() != 0) {
+        if (!isCCMessage(msg) && isOnKeyDown(msg)) {
             return false;
         }
         TrackBankCommand command = handlers.get(msg.getData1());
@@ -108,6 +106,23 @@ public class TrackBankManager {
 
     public boolean isValidCommand(ShortMidiMessage msg) {
         return handlers.keySet().stream().anyMatch(code -> msg.getData1() == code);
+    }
+
+    private boolean isCCMessage(ShortMidiMessage msg) {
+        return Arrays
+                .stream(new Integer[]{
+                        BUTTON_WHEEL,
+                        BUTTON_KNOB_1, BUTTON_KNOB_2, BUTTON_KNOB_3, BUTTON_KNOB_4, BUTTON_KNOB_5, BUTTON_KNOB_6, BUTTON_KNOB_7, BUTTON_KNOB_8,
+                        BUTTON_FADER_1, BUTTON_FADER_2, BUTTON_FADER_3, BUTTON_FADER_4, BUTTON_FADER_5, BUTTON_FADER_6, BUTTON_FADER_7, BUTTON_FADER_8})
+                .anyMatch(code -> msg.getData1() == code);
+    }
+
+    private boolean isOnKeyUp(ShortMidiMessage msg) {
+        return msg.getData2() == 0;
+    }
+
+    private boolean isOnKeyDown(ShortMidiMessage msg) {
+        return msg.getData2() != 0;
     }
 
 }

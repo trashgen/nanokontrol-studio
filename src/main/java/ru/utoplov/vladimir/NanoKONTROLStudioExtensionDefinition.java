@@ -4,12 +4,7 @@ import com.bitwig.extension.api.PlatformType;
 import com.bitwig.extension.controller.AutoDetectionMidiPortNamesList;
 import com.bitwig.extension.controller.ControllerExtensionDefinition;
 import com.bitwig.extension.controller.api.ControllerHost;
-import ru.utoplov.vladimir.scenes.BaseView;
-import ru.utoplov.vladimir.scenes.SceneView;
-import ru.utoplov.vladimir.scenes.StubView;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class NanoKONTROLStudioExtensionDefinition extends ControllerExtensionDefinition {
@@ -88,15 +83,6 @@ public class NanoKONTROLStudioExtensionDefinition extends ControllerExtensionDef
     public final static int BUTTON_TRANSPORT_RECORD = 81;
 
     public final static int BUTTON_WHEEL = 86;
-
-    // Scene button values
-    public final static Map<String, SceneView> SysexHandlers = new HashMap<String, SceneView>() {{
-        put("f042400001370200004f00f7", new BaseView());
-        put("f042400001370200004f01f7", new StubView());
-        put("f042400001370200004f02f7", new StubView());
-        put("f042400001370200004f03f7", new StubView());
-        put("f042400001370200004f04f7", new StubView());
-    }};
 
     public NanoKONTROLStudioExtensionDefinition() {
     }

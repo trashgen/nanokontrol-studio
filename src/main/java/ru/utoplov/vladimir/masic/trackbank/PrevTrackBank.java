@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir.trackbank;
+package ru.utoplov.vladimir.masic.trackbank;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.controller.api.TrackBank;

@@ -4,9 +4,9 @@ import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.callback.ShortMidiMessageReceivedCallback;
 import com.bitwig.extension.controller.ControllerExtension;
 import com.bitwig.extension.controller.api.ControllerHost;
-import ru.utoplov.vladimir.scenes.SceneView;
-import ru.utoplov.vladimir.trackbank.TrackBankManager;
-import ru.utoplov.vladimir.transport.TransportManager;
+import ru.utoplov.vladimir.masic.scenes.SceneView;
+import ru.utoplov.vladimir.masic.trackbank.TrackBankManager;
+import ru.utoplov.vladimir.masic.transport.TransportManager;
 
 public class NanoKONTROLStudioExtension extends ControllerExtension {
 
@@ -35,6 +35,8 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
      */
     private void onMidi0(ShortMidiMessage msg) {
 //        getHost().showPopupNotification(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
+        // TODO : Check if I have SHIFT
+        getHost().println(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
         if (transportManager.isValidCommand(msg)) {
             transportManager.execute(msg, useShift(msg));
         } else if (trackBankManager.isValidCommand(msg)) {

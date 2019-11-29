@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir.scenes;
+package ru.utoplov.vladimir.masic.scenes;
 
 public class BaseView implements SceneView {
     @Override

@@ -1,17 +1,17 @@
-package ru.utoplov.vladimir.trackbank;
+package ru.utoplov.vladimir.masic.trackbank;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.controller.api.TrackBank;
 
-public class Mute implements TrackBankCommand {
+public class Fader implements TrackBankCommand {
     private int index;
 
-    public Mute(int index) {
+    public Fader(int index) {
         this.index = index;
     }
 
     @Override
     public void execute(ShortMidiMessage msg, TrackBank trackBank, boolean useShift) {
-        trackBank.getItemAt(index).mute().toggle();
+        trackBank.getItemAt(index).volume().value().set(msg.getData2(), 128);
     }
 }
