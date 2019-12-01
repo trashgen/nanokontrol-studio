@@ -2,10 +2,9 @@ package ru.utoplov.vladimir.view;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 
-// Same as Mix Scene but without leds. Good for long BT session.
-public class EconomyMixView implements Scene {
+public class SendView implements Scene {
 
-    private final static String SCENE_NAME = "Economy Mix Scene";
+    private final static String SCENE_NAME = "Send Scene";
 
     @Override
     public String getName() {

@@ -22,15 +22,6 @@ public class TrackBankManager {
         put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRACK_BANK_PREV, new PrevTrackBank());
         put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRACK_BANK_NEXT, new NextTrackBank());
 
-        put(BUTTON_SOLO_1, new Solo(0));
-        put(BUTTON_SOLO_2, new Solo(1));
-        put(BUTTON_SOLO_3, new Solo(2));
-        put(BUTTON_SOLO_4, new Solo(3));
-        put(BUTTON_SOLO_5, new Solo(4));
-        put(BUTTON_SOLO_6, new Solo(5));
-        put(BUTTON_SOLO_7, new Solo(6));
-        put(BUTTON_SOLO_8, new Solo(7));
-
         put(BUTTON_FADER_1, new Fader(0));
         put(BUTTON_FADER_2, new Fader(1));
         put(BUTTON_FADER_3, new Fader(2));
@@ -42,7 +33,7 @@ public class TrackBankManager {
     }};
 
     public TrackBankManager(ControllerHost host) {
-        trackBank = host.createTrackBank(8, 8, 0, true);
+        trackBank = host.createTrackBank(8, 1, 0, true);
         for (int i = 0; i < trackBank.getSizeOfBank(); i++) {
             Track track = trackBank.getItemAt(i);
             track.name().markInterested();
@@ -67,19 +58,6 @@ public class TrackBankManager {
         effectTracks = cursorTrack.createEffectTrackBank(1, 8, true);
         for (int i = 0; i < effectTracks.getSizeOfBank(); i++) {
             effectTracks.getItemAt(i).name().markInterested();
-        }
-
-        for (int index = BUTTON_KNOB_1, i = 0; index <= BUTTON_KNOB_8; index++, i++) {
-            handlers.put(index, new Knob(i));
-        }
-        for (int index = BUTTON_MUTE_1, i = 0; index <= BUTTON_MUTE_8; index++, i++) {
-            handlers.put(index, new Mute(i));
-        }
-        for (int index = BUTTON_RECORD_1, i = 0; index <= BUTTON_RECORD_1; index++, i++) {
-            handlers.put(index, new Record(i));
-        }
-        for (int index = BUTTON_SELECT_1, i = 0; index <= BUTTON_SELECT_8; index++, i++) {
-            handlers.put(index, new Select(host, cursorTrack, i));
         }
 
         handlers.put(BUTTON_SEND_BANK_NEXT, new NextSendBank(host, effectTracks, cursorTrack));

@@ -4,16 +4,12 @@ import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.callback.ShortMidiMessageReceivedCallback;
 import com.bitwig.extension.controller.ControllerExtension;
 import com.bitwig.extension.controller.api.ControllerHost;
-import ru.utoplov.vladimir.masic.scenes.SceneView;
-import ru.utoplov.vladimir.masic.trackbank.TrackBankManager;
-import ru.utoplov.vladimir.masic.transport.TransportManager;
+import ru.utoplov.vladimir.view.Scene;
 
 public class NanoKONTROLStudioExtension extends ControllerExtension {
 
-    private TrackBankManager trackBankManager;
-    private TransportManager transportManager;
-
-    public static SceneView currentView;
+    private Scene currentScene;
+    private SceneManager sceneManager;
 
     NanoKONTROLStudioExtension(final NanoKONTROLStudioExtensionDefinition definition, final ControllerHost host) {
         super(definition, host);
@@ -24,24 +20,23 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
         getHost().getMidiInPort(0).setMidiCallback((ShortMidiMessageReceivedCallback) this::onMidi0);
         getHost().getMidiInPort(0).setSysexCallback(this::onSysex0);
 
-        trackBankManager = new TrackBankManager(getHost());
-        transportManager = new TransportManager(getHost());
+        sceneManager = new SceneManager(
+                getHost().createTransport(),
+                getHost().createTrackBank(8, 0, 0, true));
+        currentScene = sceneManager.getFirstScene();
 
-        getHost().showPopupNotification("NanoKONTROL Studio Initialized");
+        getHost().showPopupNotification("trashgen NanoKONTROL Studio Initialized");
+        getHost().println("trashgen NanoKONTROL Studio Initialized");
     }
 
     /**
      * Called when we receive short MIDI message on port 0.
      */
     private void onMidi0(ShortMidiMessage msg) {
-//        getHost().showPopupNotification(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
-        // TODO : Check if I have SHIFT
+        // TODO : Check if I have SHIFT. (Yes I can, but not the 'Cycles' Button. Maybe 'Set' or '<<'
+        getHost().showPopupNotification(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
         getHost().println(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
-        if (transportManager.isValidCommand(msg)) {
-            transportManager.execute(msg, useShift(msg));
-        } else if (trackBankManager.isValidCommand(msg)) {
-            trackBankManager.execute(msg, useShift(msg));
-        }
+        currentScene.handleMidiCommand(msg);
     }
 
     @Override
@@ -58,11 +53,8 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
      * Called when we receive sysex MIDI message on port 0.
      */
     private void onSysex0(final String data) {
-        SceneView view = NanoKONTROLStudioExtensionDefinition.SysexHandlers.get(data);
-        if (view != null) {
-            currentView = view;
-            getHost().showPopupNotification(String.format("Set mode [%s]", view.getName()));
-        }
+        currentScene = sceneManager.onSceneChange(data);
+        getHost().showPopupNotification(String.format("Set mode [%s]", currentScene.getName()));
     }
 
     private boolean useShift(ShortMidiMessage msg) {

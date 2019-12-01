@@ -15,9 +15,9 @@ public class NanoKONTROLStudioExtensionDefinition extends ControllerExtensionDef
     public final static int BUTTON_FADER_3 = 4;
     public final static int BUTTON_FADER_4 = 5;
     public final static int BUTTON_FADER_5 = 6;
-    public final static int BUTTON_FADER_6 = 8;
-    public final static int BUTTON_FADER_7 = 9;
-    public final static int BUTTON_FADER_8 = 12;
+    public final static int BUTTON_FADER_6 = 7;
+    public final static int BUTTON_FADER_7 = 8;
+    public final static int BUTTON_FADER_8 = 9;
 
     public final static int BUTTON_KNOB_1 = 13;
     public final static int BUTTON_KNOB_2 = 14;
@@ -27,42 +27,6 @@ public class NanoKONTROLStudioExtensionDefinition extends ControllerExtensionDef
     public final static int BUTTON_KNOB_6 = 18;
     public final static int BUTTON_KNOB_7 = 19;
     public final static int BUTTON_KNOB_8 = 20;
-
-    public final static int BUTTON_SOLO_1 = 29;
-    public final static int BUTTON_SOLO_2 = 30;
-    public final static int BUTTON_SOLO_3 = 31;
-    public final static int BUTTON_SOLO_4 = 33;
-    public final static int BUTTON_SOLO_5 = 34;
-    public final static int BUTTON_SOLO_6 = 35;
-    public final static int BUTTON_SOLO_7 = 36;
-    public final static int BUTTON_SOLO_8 = 37;
-
-    public final static int BUTTON_MUTE_1 = 21;
-    public final static int BUTTON_MUTE_2 = 22;
-    public final static int BUTTON_MUTE_3 = 23;
-    public final static int BUTTON_MUTE_4 = 24;
-    public final static int BUTTON_MUTE_5 = 25;
-    public final static int BUTTON_MUTE_6 = 26;
-    public final static int BUTTON_MUTE_7 = 27;
-    public final static int BUTTON_MUTE_8 = 28;
-
-    public final static int BUTTON_RECORD_1 = 38;
-    public final static int BUTTON_RECORD_2 = 39;
-    public final static int BUTTON_RECORD_3 = 40;
-    public final static int BUTTON_RECORD_4 = 41;
-    public final static int BUTTON_RECORD_5 = 42;
-    public final static int BUTTON_RECORD_6 = 43;
-    public final static int BUTTON_RECORD_7 = 44;
-    public final static int BUTTON_RECORD_8 = 45;
-
-    public final static int BUTTON_SELECT_1 = 46;
-    public final static int BUTTON_SELECT_2 = 47;
-    public final static int BUTTON_SELECT_3 = 48;
-    public final static int BUTTON_SELECT_4 = 49;
-    public final static int BUTTON_SELECT_5 = 50;
-    public final static int BUTTON_SELECT_6 = 51;
-    public final static int BUTTON_SELECT_7 = 52;
-    public final static int BUTTON_SELECT_8 = 53;
 
     // Cycle button used as shift. Press'n'Hold to use.
     public final static int BUTTON_SHIFT = 54;
@@ -76,11 +40,6 @@ public class NanoKONTROLStudioExtensionDefinition extends ControllerExtensionDef
 
     public final static int BUTTON_TRACK_BANK_PREV = 60;
     public final static int BUTTON_TRACK_BANK_NEXT = 61;
-
-    public final static int BUTTON_TRANSPORT_REWIND = 62;
-    public final static int BUTTON_TRANSPORT_STOP = 63;
-    public final static int BUTTON_TRANSPORT_PLAY = 80;
-    public final static int BUTTON_TRANSPORT_RECORD = 81;
 
     public final static int BUTTON_WHEEL = 86;
 
@@ -138,7 +97,7 @@ public class NanoKONTROLStudioExtensionDefinition extends ControllerExtensionDef
             // TODO: Set the correct names of the ports for auto detection on Windows platform here
             // and uncomment this when port names are correct.
             // list.add(new String[]{"Input Port 0"}, new String[]{"Output Port 0"});
-            list.add(new String[]{"nanoKONTROL Studio"}, new String[]{"nanoKONTROL Studio"});
+//            list.add(new String[]{"nanoKONTROL Studio IN"}, new String[]{"nanoKONTROL Studio OUT"});
         } else if (platformType == PlatformType.MAC) {
             // TODO: Set the correct names of the ports for auto detection on Windows platform here
             // and uncomment this when port names are correct.

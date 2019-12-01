@@ -19,10 +19,10 @@ public class TransportManager {
     private final Map<Integer, TransportCommand> handlers = new HashMap<Integer, TransportCommand>() {{
         put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_BACKWARD, new Backward());
         put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_FAST_FORWARD, new FastForward());
-        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_REWIND, new Rewind());
-        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_STOP, new Stop());
-        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_PLAY, new Play());
-        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_RECORD, new Record());
+//        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_REWIND, new Rewind());
+//        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_STOP, new Stop());
+//        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_PLAY, new Play());
+//        put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRANSPORT_RECORD, new Record());
     }};
 
     public boolean execute(ShortMidiMessage msg, boolean useShift) {
