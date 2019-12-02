@@ -2,76 +2,67 @@ package ru.utoplov.vladimir;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.callback.ShortMidiMessageReceivedCallback;
-import com.bitwig.extension.controller.api.ControllerHost;
-import com.bitwig.extension.controller.api.Transport;
 import com.bitwig.extension.controller.ControllerExtension;
+import com.bitwig.extension.controller.api.ControllerHost;
+import ru.utoplov.vladimir.view.Scene;
 
-import java.util.HashMap;
-import java.util.Map;
+public class NanoKONTROLStudioExtension extends ControllerExtension {
 
-public class NanoKONTROLStudioExtension extends ControllerExtension
-{
-   private Transport transport;
-   private Map<String, String> sysexHandlers = new HashMap<String, String>() {{
-      put("f042400001370200004f00f7", "Velocity");
-      put("f042400001370200004f01f7", "Send 08");
-      put("f042400001370200004f02f7", "Send 16");
-      put("f042400001370200004f03f7", "Not Used Yet");
-      put("f042400001370200004f04f7", "Reserved");
-   }};
-   protected NanoKONTROLStudioExtension(final NanoKONTROLStudioExtensionDefinition definition, final ControllerHost host)
-   {
-      super(definition, host);
-   }
+    private static final String NANO_KONTROL_STUDIO_ID = "NANO_KONTROL_STUDIO_ID";
+    private static final String NANO_KONTROL_STUDIO_NAME = "NANO_KONTROL_STUDIO_NAME";
 
-   @Override
-   public void init()
-   {
-      final ControllerHost host = getHost();      
-      transport = host.createTransport();
+    private Scene currentScene;
+    private SceneManager sceneManager;
 
-      host.getMidiInPort(0).setMidiCallback((ShortMidiMessageReceivedCallback)msg -> onMidi0(msg));
-      host.getMidiInPort(0).setSysexCallback((String data) -> onSysex0(data));
+    NanoKONTROLStudioExtension(final NanoKONTROLStudioExtensionDefinition definition, final ControllerHost host) {
+        super(definition, host);
+    }
 
-      host.showPopupNotification("NanoKONTROL Studio Initialized");
-   }
+    @Override
+    public void init() {
+        getHost().getMidiInPort(0).setMidiCallback((ShortMidiMessageReceivedCallback) this::onMidi0);
+        getHost().getMidiInPort(0).setSysexCallback(this::onSysex0);
 
-   @Override
-   public void exit()
-   {
-      getHost().showPopupNotification("NanoKONTROL Studio Exited");
-   }
+        sceneManager = new SceneManager(
+                getHost().createTransport(),
+                getHost().createTrackBank(8, 0, 0, true),
+                getHost().createCursorTrack(NANO_KONTROL_STUDIO_ID, NANO_KONTROL_STUDIO_NAME, 8, 0, true));
+        currentScene = sceneManager.getFirstScene();
 
-   @Override
-   public void flush()
-   {
-      // TODO Send any updates you need here.
-   }
+        getHost().showPopupNotification("trashgen NanoKONTROL Studio Initialized");
+        getHost().println("trashgen NanoKONTROL Studio Initialized");
+    }
 
-   /** Called when we receive short MIDI message on port 0. */
-   private void onMidi0(ShortMidiMessage msg) 
-   {
-      getHost().showPopupNotification(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
-      if (msg.getData2() != 0) {
-         return;
-      }
-      switch (msg.getData1()) {
-         case NanoKONTROLStudioExtensionDefinition.BUTTON_STOP:
-            transport.stop();
-            break;
-         case NanoKONTROLStudioExtensionDefinition.BUTTON_PLAY:
-            transport.play();
-            break;
-      }
-   }
+    /**
+     * Called when we receive short MIDI message on port 0.
+     */
+    private void onMidi0(ShortMidiMessage msg) {
+        // TODO : Check if I have SHIFT. (Yes I can, but not the 'Cycles' Button. Maybe 'Set' or '<<'
+        getHost().showPopupNotification(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
+        getHost().println(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
+        currentScene.handleMidiCommand(msg);
+    }
 
-   /** Called when we receive sysex MIDI message on port 0. */
-   private void onSysex0(final String data) 
-   {
-      Object handler = sysexHandlers.get(data);
-      if (handler != null) {
-         getHost().showPopupNotification(String.format("Set mode [%s]", handler));
-      }
-   }
+    @Override
+    public void exit() {
+        getHost().showPopupNotification("NanoKONTROL Studio Exited");
+    }
+
+    @Override
+    public void flush() {
+        // TODO Send any updates you need here.
+    }
+
+    /**
+     * Called when we receive sysex MIDI message on port 0.
+     */
+    private void onSysex0(final String data) {
+        currentScene = sceneManager.onSceneChange(data);
+        getHost().showPopupNotification(String.format("Set mode [%s]", currentScene.getName()));
+    }
+
+    private boolean useShift(ShortMidiMessage msg) {
+        return msg.getData1() == NanoKONTROLStudioExtensionDefinition.BUTTON_SHIFT && msg.getData2() == 127;
+    }
 
 }
