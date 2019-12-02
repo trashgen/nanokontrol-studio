@@ -1,10 +1,7 @@
 package ru.utoplov.vladimir.buttons.continuousset;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
-import com.bitwig.extension.controller.api.CursorTrack;
-import com.bitwig.extension.controller.api.Parameter;
-import com.bitwig.extension.controller.api.Track;
-import com.bitwig.extension.controller.api.TrackBank;
+import com.bitwig.extension.controller.api.*;
 import ru.utoplov.vladimir.ButtonSet;
 
 import java.util.HashMap;
@@ -13,44 +10,52 @@ import java.util.Map;
 public class ContinuousControlSet implements ButtonSet {
 
     private final TrackBank trackBank;
+    private final Transport transport;
     private final CursorTrack cursorTrack;
 
-    private final Map<Integer, ContinuousControl> buttons = new HashMap<>();
+    private final Map<Integer, ContinuousControl> controls = new HashMap<>();
 
-    public ContinuousControlSet(TrackBank trackBank, CursorTrack cursorTrack) {
+    public ContinuousControlSet(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, ControlContext controlContext) {
         this.trackBank = trackBank;
+        this.transport = transport;
         this.cursorTrack = cursorTrack;
 
-        for (int i = 0; i < trackBank.getSizeOfBank(); i++) {
-            Track track = trackBank.getItemAt(i);
-//            for (int j = 0; j < track.sendBank().getSizeOfBank(); j++) {
-//                track.sendBank().getItemAt(j).markInterested();
-//                track.sendBank().getItemAt(j).setIndication(true);
-//                Send send = track.sendBank().getItemAt(j);
-//                send.sendMode().
-//            }
+        transport.getPosition().markInterested();
 
+        for (int i = 0; i < this.cursorTrack.sendBank().getSizeOfBank(); i++) {
+            Send send = this.cursorTrack.sendBank().getItemAt(i);
+            send.markInterested();
+            send.setIndication(true);
+            send.value().markInterested();
+        }
+
+        for (int i = 0; i < this.trackBank.getSizeOfBank(); i++) {
             Parameter parameter = trackBank.getItemAt(i).volume();
             parameter.markInterested();
             parameter.setIndication(true);
         }
 
+        controls.put(BUTTON_WHEEL_BACKWARD, new WheelBackwardControl(transport, trackBank, cursorTrack, controlContext));
+        controls.put(BUTTON_WHEEL_FORWARD, new WheelForwardControl(transport, trackBank, cursorTrack, controlContext));
+
         for (int i = BUTTON_FADER_1; i <= BUTTON_FADER_8; i++) {
-            buttons.put(i, new FaderControl(trackBank, cursorTrack, i - BUTTON_FADER_1));
+            controls.put(i, new FaderControl(trackBank, cursorTrack, i - BUTTON_FADER_1));
         }
         for (int i = BUTTON_KNOB_1; i <= BUTTON_KNOB_8; i++) {
-            buttons.put(i, new KnobControl(trackBank, cursorTrack, i - BUTTON_KNOB_1));
+            controls.put(i, new KnobControl(trackBank, cursorTrack, i - BUTTON_KNOB_1));
         }
     }
 
     @Override
     public boolean isValid(ShortMidiMessage msg) {
-        return false;
+        return controls.keySet().stream().anyMatch(code -> msg.getData1() == code);
     }
 
     @Override
     public boolean execute(ShortMidiMessage msg) {
-        return false;
+        ContinuousControl button = controls.get(msg.getData1());
+        button.execute(msg);
+        return true;
     }
 
     private final static int BUTTON_FADER_1 = 2;
@@ -58,5 +63,9 @@ public class ContinuousControlSet implements ButtonSet {
 
     private final static int BUTTON_KNOB_1 = 13;
     private final static int BUTTON_KNOB_8 = 20;
+
+    private final static int BUTTON_WHEEL = 86;
+    private final static int BUTTON_WHEEL_BACKWARD = 83;
+    private final static int BUTTON_WHEEL_FORWARD = 85;
 
 }

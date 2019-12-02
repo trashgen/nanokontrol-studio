@@ -1,5 +1,6 @@
 package ru.utoplov.vladimir.buttons.continuousset;
 
+import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;
 
@@ -13,7 +14,7 @@ public class FaderControl extends ContinuousControl {
     }
 
     @Override
-    void logic() {
-//        trackBank.getItemAt(index).volume().value().set(msg.getData2(), 128);
+    void logic(ShortMidiMessage msg) {
+        trackBank.getItemAt(index).volume().value().set(msg.getData2(), 128);
     }
 }

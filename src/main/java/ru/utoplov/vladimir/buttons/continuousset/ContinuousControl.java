@@ -15,9 +15,9 @@ public abstract class ContinuousControl {
     }
 
     void execute(ShortMidiMessage msg) {
-        logic();
+        logic(msg);
     }
 
-    abstract void logic();
+    abstract void logic(ShortMidiMessage msg);
 
 }

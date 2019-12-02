@@ -3,18 +3,19 @@ package ru.utoplov.vladimir.buttons.continuousset;
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;
+import com.bitwig.extension.controller.api.Transport;
 
-public class KnobControl extends ContinuousControl {
+public class WheelControl extends ContinuousControl {
 
-    private int index;
+    private Transport transport;
 
-    KnobControl(TrackBank trackBank, CursorTrack cursorTrack, int index) {
+    WheelControl(Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         super(trackBank, cursorTrack);
-        this.index = index;
+        this.transport = transport;
     }
 
     @Override
     void logic(ShortMidiMessage msg) {
-        cursorTrack.sendBank().getItemAt(index).value().set(msg.getData2(), 128);
+        transport.setPosition(msg.getData2());
     }
 }

@@ -14,16 +14,8 @@ public class NanoKONTROLStudioExtensionDefinition extends ControllerExtensionDef
     public final static int BUTTON_SHIFT = 54;
 
     public final static int BUTTON_MARKER_SET = 55;
-    public final static int BUTTON_MARKER_PREV = 56;
-    public final static int BUTTON_SEND_BANK_NEXT = 57;
-
     public final static int BUTTON_TRANSPORT_BACKWARD = 58;
     public final static int BUTTON_TRANSPORT_FAST_FORWARD = 59;
-
-    public final static int BUTTON_TRACK_BANK_PREV = 60;
-    public final static int BUTTON_TRACK_BANK_NEXT = 61;
-
-    public final static int BUTTON_WHEEL = 86;
 
     public NanoKONTROLStudioExtensionDefinition() {
     }

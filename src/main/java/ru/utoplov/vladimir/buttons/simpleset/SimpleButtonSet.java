@@ -6,6 +6,7 @@ import com.bitwig.extension.controller.api.Track;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.ButtonSet;
+import ru.utoplov.vladimir.buttons.continuousset.ControlContext;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class SimpleButtonSet implements ButtonSet {
 
     private final Map<Integer, SimpleButton> buttons = new HashMap<>();
 
-    public SimpleButtonSet(Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    public SimpleButtonSet(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, ControlContext controlContext) {
         this.trackBank = trackBank;
         this.transport = transport;
         this.cursorTrack = cursorTrack;
@@ -30,9 +31,15 @@ public class SimpleButtonSet implements ButtonSet {
         }
 
         buttons.put(BUTTON_TRANSPORT_REWIND, new RewindButton(transport, trackBank));
-        buttons.put(BUTTON_TRANSPORT_STOP, new StopButton(transport, trackBank));
+        buttons.put(BUTTON_TRANSPORT_STOP, new StopButton(transport, trackBank, controlContext));
         buttons.put(BUTTON_TRANSPORT_PLAY, new PlayButton(transport, trackBank));
         buttons.put(BUTTON_TRANSPORT_RECORD, new RecordButton(transport, trackBank));
+
+        buttons.put(BUTTON_SEND_BANK_PREV, new PrevSendBankButton(transport, trackBank, cursorTrack));
+        buttons.put(BUTTON_SEND_BANK_NEXT, new NextSendBankButton(transport, trackBank, cursorTrack));
+
+        buttons.put(BUTTON_TRACK_BANK_PREV, new PrevTrackBankButton(transport, trackBank));
+        buttons.put(BUTTON_TRACK_BANK_NEXT, new NextTrackBankButton(transport, trackBank));
 
         for (int i = BUTTON_MUTE_1; i <= BUTTON_MUTE_8; i++) {
             buttons.put(i, new MuteButton(transport, trackBank, i - BUTTON_MUTE_1));
@@ -72,6 +79,12 @@ public class SimpleButtonSet implements ButtonSet {
 
     private final static int BUTTON_SELECT_1 = 46;
     private final static int BUTTON_SELECT_8 = 53;
+
+    public final static int BUTTON_SEND_BANK_PREV = 56;
+    public final static int BUTTON_SEND_BANK_NEXT = 57;
+
+    public final static int BUTTON_TRACK_BANK_PREV = 60;
+    public final static int BUTTON_TRACK_BANK_NEXT = 61;
 
     private final static int BUTTON_TRANSPORT_REWIND = 62;
     private final static int BUTTON_TRANSPORT_STOP = 63;
