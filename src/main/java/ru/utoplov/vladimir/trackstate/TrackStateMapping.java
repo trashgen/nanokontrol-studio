@@ -1,6 +1,7 @@
 package ru.utoplov.vladimir.trackstate;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
+import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;
 import ru.utoplov.vladimir.MappingManager;
 
@@ -9,6 +10,7 @@ import java.util.Arrays;
 public abstract class TrackStateMapping extends MappingManager {
 
     protected TrackBank trackBank;
+    protected CursorTrack cursorTrack;
 
     protected abstract void onSolo(int index);
 
@@ -18,9 +20,10 @@ public abstract class TrackStateMapping extends MappingManager {
 
     protected abstract void onSelect(int index);
 
-    public TrackStateMapping(TrackBank trackBank) {
+    public TrackStateMapping(TrackBank trackBank, CursorTrack cursorTrack) {
         super();
         this.trackBank = trackBank;
+        this.cursorTrack = cursorTrack;
     }
 
     @Override

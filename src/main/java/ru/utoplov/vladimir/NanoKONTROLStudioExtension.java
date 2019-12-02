@@ -8,6 +8,9 @@ import ru.utoplov.vladimir.view.Scene;
 
 public class NanoKONTROLStudioExtension extends ControllerExtension {
 
+    private static final String NANO_KONTROL_STUDIO_ID = "NANO_KONTROL_STUDIO_ID";
+    private static final String NANO_KONTROL_STUDIO_NAME = "NANO_KONTROL_STUDIO_NAME";
+
     private Scene currentScene;
     private SceneManager sceneManager;
 
@@ -22,7 +25,8 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
 
         sceneManager = new SceneManager(
                 getHost().createTransport(),
-                getHost().createTrackBank(8, 0, 0, true));
+                getHost().createTrackBank(8, 0, 0, true),
+                getHost().createCursorTrack(NANO_KONTROL_STUDIO_ID, NANO_KONTROL_STUDIO_NAME, 8, 0, true));
         currentScene = sceneManager.getFirstScene();
 
         getHost().showPopupNotification("trashgen NanoKONTROL Studio Initialized");

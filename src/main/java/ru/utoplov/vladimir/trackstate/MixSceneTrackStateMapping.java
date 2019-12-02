@@ -1,13 +1,14 @@
 package ru.utoplov.vladimir.trackstate;
 
+import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.Parameter;
 import com.bitwig.extension.controller.api.Track;
 import com.bitwig.extension.controller.api.TrackBank;
 
 public class MixSceneTrackStateMapping extends TrackStateMapping {
 
-    public MixSceneTrackStateMapping(TrackBank trackBank) {
-        super(trackBank);
+    public MixSceneTrackStateMapping(TrackBank trackBank, CursorTrack cursorTrack) {
+        super(trackBank, cursorTrack);
         for (int i = 0; i < trackBank.getSizeOfBank(); i++) {
             Track track = trackBank.getItemAt(i);
             track.name().markInterested();

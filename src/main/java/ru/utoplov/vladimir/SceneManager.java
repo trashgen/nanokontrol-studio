@@ -1,5 +1,6 @@
 package ru.utoplov.vladimir;
 
+import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.trackstate.MixSceneTrackStateMapping;
@@ -20,10 +21,10 @@ class SceneManager {
 //        put("f042400001370200004f04f7", null);
 //    }};
 
-    SceneManager(Transport transport, TrackBank trackBank) {
+    SceneManager(Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         mixScene = new MixScene(
                 new MixSceneTransportMapping(transport),
-                new MixSceneTrackStateMapping(trackBank));
+                new MixSceneTrackStateMapping(trackBank, cursorTrack));
     }
 
     Scene onSceneChange(final String data) {

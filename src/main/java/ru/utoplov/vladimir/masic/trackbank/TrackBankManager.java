@@ -18,18 +18,12 @@ public class TrackBankManager {
     private final TrackBank trackBank;
     private final CursorTrack cursorTrack;
 
+    // trackBank.scrollPageBackwards();
+    // trackBank.getItemAt(index).volume().value().set(msg.getData2(), 128);
+
     private final Map<Integer, TrackBankCommand> handlers = new HashMap<Integer, TrackBankCommand>() {{
         put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRACK_BANK_PREV, new PrevTrackBank());
         put(NanoKONTROLStudioExtensionDefinition.BUTTON_TRACK_BANK_NEXT, new NextTrackBank());
-
-        put(BUTTON_FADER_1, new Fader(0));
-        put(BUTTON_FADER_2, new Fader(1));
-        put(BUTTON_FADER_3, new Fader(2));
-        put(BUTTON_FADER_4, new Fader(3));
-        put(BUTTON_FADER_5, new Fader(4));
-        put(BUTTON_FADER_6, new Fader(5));
-        put(BUTTON_FADER_7, new Fader(6));
-        put(BUTTON_FADER_8, new Fader(7));
     }};
 
     public TrackBankManager(ControllerHost host) {
