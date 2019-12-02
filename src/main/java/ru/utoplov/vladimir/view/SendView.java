@@ -12,7 +12,7 @@ public class SendView implements Scene {
     }
 
     @Override
-    public void handleMidiCommand(ShortMidiMessage msg) {
-
+    public boolean handleMidiCommand(ShortMidiMessage msg) {
+        return false;
     }
 }
