@@ -10,24 +10,6 @@ import java.util.UUID;
 public class NanoKONTROLStudioExtensionDefinition extends ControllerExtensionDefinition {
     private static final UUID DRIVER_ID = UUID.fromString("dc010196-7101-4519-ad10-ab5634f76da5");
 
-    public final static int BUTTON_FADER_1 = 2;
-    public final static int BUTTON_FADER_2 = 3;
-    public final static int BUTTON_FADER_3 = 4;
-    public final static int BUTTON_FADER_4 = 5;
-    public final static int BUTTON_FADER_5 = 6;
-    public final static int BUTTON_FADER_6 = 7;
-    public final static int BUTTON_FADER_7 = 8;
-    public final static int BUTTON_FADER_8 = 9;
-
-    public final static int BUTTON_KNOB_1 = 13;
-    public final static int BUTTON_KNOB_2 = 14;
-    public final static int BUTTON_KNOB_3 = 15;
-    public final static int BUTTON_KNOB_4 = 16;
-    public final static int BUTTON_KNOB_5 = 17;
-    public final static int BUTTON_KNOB_6 = 18;
-    public final static int BUTTON_KNOB_7 = 19;
-    public final static int BUTTON_KNOB_8 = 20;
-
     // Cycle button used as shift. Press'n'Hold to use.
     public final static int BUTTON_SHIFT = 54;
 

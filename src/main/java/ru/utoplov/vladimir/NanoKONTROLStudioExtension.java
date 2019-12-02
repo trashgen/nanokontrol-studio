@@ -40,7 +40,9 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
         // TODO : Check if I have SHIFT. (Yes I can, but not the 'Cycles' Button. Maybe 'Set' or '<<'
         getHost().showPopupNotification(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
         getHost().println(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
-        currentScene.handleMidiCommand(msg);
+        if (!currentScene.handleMidiCommand(msg)) {
+            getHost().errorln(String.format("Message [%d] not supported", msg.getData1()));
+        }
     }
 
     @Override
