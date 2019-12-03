@@ -6,7 +6,7 @@ import com.bitwig.extension.controller.api.Track;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.ButtonSet;
-import ru.utoplov.vladimir.buttons.continuousset.ControlContext;
+import ru.utoplov.vladimir.DeviceControlContext;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,10 +19,13 @@ public class SimpleButtonSet implements ButtonSet {
 
     private final Map<Integer, SimpleButton> buttons = new HashMap<>();
 
-    public SimpleButtonSet(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, ControlContext controlContext) {
+    public SimpleButtonSet(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, DeviceControlContext deviceControlContext) {
         this.trackBank = trackBank;
         this.transport = transport;
         this.cursorTrack = cursorTrack;
+
+        transport.isPlaying().markInterested();
+        transport.isArrangerRecordEnabled().markInterested();
 
         for (int i = 0; i < trackBank.getSizeOfBank(); i++) {
             Track track = trackBank.getItemAt(i);
@@ -31,9 +34,9 @@ public class SimpleButtonSet implements ButtonSet {
         }
 
         buttons.put(BUTTON_TRANSPORT_REWIND, new RewindButton(transport, trackBank));
-        buttons.put(BUTTON_TRANSPORT_STOP, new StopButton(transport, trackBank, controlContext));
-        buttons.put(BUTTON_TRANSPORT_PLAY, new PlayButton(transport, trackBank));
-        buttons.put(BUTTON_TRANSPORT_RECORD, new RecordButton(transport, trackBank));
+        buttons.put(BUTTON_TRANSPORT_STOP, new StopButton(deviceControlContext, transport, trackBank));
+        buttons.put(BUTTON_TRANSPORT_PLAY, new PlayButton(deviceControlContext, transport, trackBank));
+        buttons.put(BUTTON_TRANSPORT_RECORD, new RecordButton(deviceControlContext, transport, trackBank));
 
         buttons.put(BUTTON_SEND_BANK_PREV, new PrevSendBankButton(transport, trackBank, cursorTrack));
         buttons.put(BUTTON_SEND_BANK_NEXT, new NextSendBankButton(transport, trackBank, cursorTrack));
@@ -42,17 +45,17 @@ public class SimpleButtonSet implements ButtonSet {
         buttons.put(BUTTON_TRACK_BANK_NEXT, new NextTrackBankButton(transport, trackBank));
 
         for (int i = BUTTON_MUTE_1; i <= BUTTON_MUTE_8; i++) {
-            buttons.put(i, new MuteButton(transport, trackBank, i - BUTTON_MUTE_1));
+            buttons.put(i, new MuteButton(deviceControlContext, transport, trackBank, i - BUTTON_MUTE_1));
         }
         for (int i = BUTTON_SOLO_1; i <= BUTTON_SOLO_8; i++) {
-            buttons.put(i, new SoloButton(transport, trackBank, i - BUTTON_SOLO_1));
+            buttons.put(i, new SoloButton(deviceControlContext, transport, trackBank, i - BUTTON_SOLO_1));
         }
         // TODO : what the diff with 'Select' ???
 //        for (int i = BUTTON_RECORD_1; i <= BUTTON_RECORD_8; i++) {
 //            buttons.put(i, new SoloButton(transport, trackBank, cursorTrack, i - BUTTON_RECORD_1));
 //        }
         for (int i = BUTTON_SELECT_1; i <= BUTTON_SELECT_8; i++) {
-            buttons.put(i, new SelectButton(transport, trackBank, i - BUTTON_SELECT_1));
+            buttons.put(i, new SelectButton(deviceControlContext, transport, trackBank, i - BUTTON_SELECT_1));
         }
     }
 
@@ -68,16 +71,16 @@ public class SimpleButtonSet implements ButtonSet {
         return true;
     }
 
-    private final static int BUTTON_SOLO_1 = 29;
-    private final static int BUTTON_SOLO_8 = 36;
-
-    private final static int BUTTON_MUTE_1 = 21;
+    final static int BUTTON_MUTE_1 = 21;
     private final static int BUTTON_MUTE_8 = 28;
+
+    public final static int BUTTON_SOLO_1 = 29;
+    private final static int BUTTON_SOLO_8 = 36;
 
     public final static int BUTTON_RECORD_1 = 38;
     public final static int BUTTON_RECORD_8 = 45;
 
-    private final static int BUTTON_SELECT_1 = 46;
+    public final static int BUTTON_SELECT_1 = 46;
     private final static int BUTTON_SELECT_8 = 53;
 
     public final static int BUTTON_SEND_BANK_PREV = 56;
@@ -87,8 +90,8 @@ public class SimpleButtonSet implements ButtonSet {
     public final static int BUTTON_TRACK_BANK_NEXT = 61;
 
     private final static int BUTTON_TRANSPORT_REWIND = 62;
-    private final static int BUTTON_TRANSPORT_STOP = 63;
-    private final static int BUTTON_TRANSPORT_PLAY = 80;
-    private final static int BUTTON_TRANSPORT_RECORD = 81;
+    public final static int BUTTON_TRANSPORT_STOP = 63;
+    final static int BUTTON_TRANSPORT_PLAY = 80;
+    public final static int BUTTON_TRANSPORT_RECORD = 81;
 
 }

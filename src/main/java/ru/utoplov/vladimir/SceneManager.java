@@ -1,10 +1,10 @@
 package ru.utoplov.vladimir;
 
 import com.bitwig.extension.controller.api.CursorTrack;
+import com.bitwig.extension.controller.api.MidiOut;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.buttons.continuousset.ContinuousControlSet;
-import ru.utoplov.vladimir.buttons.continuousset.ControlContext;
 import ru.utoplov.vladimir.buttons.simpleset.SimpleButtonSet;
 import ru.utoplov.vladimir.view.MixScene;
 import ru.utoplov.vladimir.view.Scene;
@@ -14,7 +14,7 @@ class SceneManager {
     private static final String SYS_EX_PATTERN = "f0 42 40 00 01 37 02 00 00 4f ?? f7";
 
     private Scene mixScene;
-    private final ControlContext controlContext = new ControlContext();
+    private final DeviceControlContext deviceControlContext;
 
     // Scene button values
 //    public final static Map<String, Scene> SysexHandlers = new HashMap<String, Scene>() {{
@@ -25,11 +25,12 @@ class SceneManager {
 //        put("f042400001370200004f04f7", null);
 //    }};
 
-    SceneManager(Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    SceneManager(MidiOut midiOut, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+        deviceControlContext = new DeviceControlContext(midiOut);
         trackBank.followCursorTrack(cursorTrack);
         mixScene = new MixScene(
-                new SimpleButtonSet(transport, trackBank, cursorTrack, controlContext),
-                new ContinuousControlSet(transport, trackBank, cursorTrack, controlContext)
+                new SimpleButtonSet(transport, trackBank, cursorTrack, deviceControlContext),
+                new ContinuousControlSet(transport, trackBank, cursorTrack, deviceControlContext)
         );
     }
 
