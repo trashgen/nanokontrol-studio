@@ -6,6 +6,9 @@ import com.bitwig.extension.controller.api.TrackBank;
 
 public class FaderControl extends ContinuousControl {
 
+    final static int BUTTON_ID_FIRST = 2;
+    final static int BUTTON_ID_LAST = 9;
+
     private int index;
 
     FaderControl(TrackBank trackBank, CursorTrack cursorTrack, int index) {

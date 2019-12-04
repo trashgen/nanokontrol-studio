@@ -5,6 +5,8 @@ import com.bitwig.extension.controller.api.Transport;
 
 public class NextTrackBankButton extends SimpleButton {
 
+    final static int BUTTON_ID = 61;
+
     NextTrackBankButton(Transport transport, TrackBank trackBank) {
         super(transport, trackBank);
     }

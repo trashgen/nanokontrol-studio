@@ -6,6 +6,8 @@ import com.bitwig.extension.controller.api.Transport;
 
 public class NextSendBankButton extends SimpleButton {
 
+    final static int BUTTON_ID = 57;
+
     private CursorTrack cursorTrack;
 
     NextSendBankButton(Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {

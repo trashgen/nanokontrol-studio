@@ -6,6 +6,9 @@ import com.bitwig.extension.controller.api.TrackBank;
 
 public class KnobControl extends ContinuousControl {
 
+    final static int BUTTON_ID_FIRST = 13;
+    final static int BUTTON_ID_LAST = 20;
+
     private int index;
 
     KnobControl(TrackBank trackBank, CursorTrack cursorTrack, int index) {

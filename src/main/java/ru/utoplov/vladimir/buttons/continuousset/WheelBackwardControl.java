@@ -4,22 +4,25 @@ import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
+import ru.utoplov.vladimir.DeviceContext;
 
 public class WheelBackwardControl extends ContinuousControl {
 
+    final static int BUTTON_ID = 85;
+
     private Transport transport;
 
-    private ControlContext controlContext;
+    private DeviceContext deviceContext;
 
-    WheelBackwardControl(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, ControlContext controlContext) {
+    WheelBackwardControl(DeviceContext deviceContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         super(trackBank, cursorTrack);
         this.transport = transport;
-        this.controlContext = controlContext;
+        this.deviceContext = deviceContext;
     }
 
     @Override
     void logic(ShortMidiMessage msg) {
-        controlContext.ArrangmentPosition--;
-        transport.setPosition(controlContext.ArrangmentPosition);
+        deviceContext.ArrangementPosition--;
+        transport.setPosition(deviceContext.ArrangementPosition);
     }
 }

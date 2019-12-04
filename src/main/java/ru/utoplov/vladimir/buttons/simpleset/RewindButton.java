@@ -5,6 +5,8 @@ import com.bitwig.extension.controller.api.Transport;
 
 public class RewindButton extends SimpleButton {
 
+    final static int BUTTON_ID = 62;
+
     RewindButton(Transport transport, TrackBank trackBank) {
         super(transport, trackBank);
     }
