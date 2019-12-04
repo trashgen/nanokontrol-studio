@@ -6,7 +6,7 @@ import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.DeviceContext;
 
-public class WheelForwardControl extends ContinuousControl {
+class WheelForwardControl extends ContinuousControl {
 
     final static int BUTTON_ID = 83;
 
@@ -22,7 +22,11 @@ public class WheelForwardControl extends ContinuousControl {
 
     @Override
     void logic(ShortMidiMessage msg) {
-        deviceContext.ArrangementPosition++;
-        transport.setPosition(deviceContext.ArrangementPosition);
+        if (deviceContext.isCycleToggleStateActive()) {
+            cursorTrack.volume().value().inc(1, 1024);
+        } else {
+            deviceContext.ArrangementPosition++;
+            transport.setPosition(deviceContext.ArrangementPosition);
+        }
     }
 }

@@ -15,6 +15,8 @@ public class ContinuousControlSet implements ButtonSet {
     public ContinuousControlSet(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, DeviceContext deviceContext) {
         transport.getPosition().markInterested();
 
+//        cursorTrack.volume().value().markInterested();
+
         for (int i = 0; i < cursorTrack.sendBank().getSizeOfBank(); i++) {
             Send send = cursorTrack.sendBank().getItemAt(i);
             send.markInterested();
