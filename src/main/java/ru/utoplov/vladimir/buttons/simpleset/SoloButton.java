@@ -2,24 +2,26 @@ package ru.utoplov.vladimir.buttons.simpleset;
 
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.DeviceControlContext;
-
-import static ru.utoplov.vladimir.buttons.simpleset.SimpleButtonSet.BUTTON_SOLO_1;
+import ru.utoplov.vladimir.DeviceContext;
 
 public class SoloButton extends SimpleButton {
 
-    private int index;
-    private DeviceControlContext deviceControlContext;
+    final static int BUTTON_ID_FIRST = 29;
+    final static int BUTTON_ID_LAST = 36;
 
-    SoloButton(DeviceControlContext deviceControlContext, Transport transport, TrackBank trackBank, int index) {
+    private int index;
+    private DeviceContext deviceContext;
+
+    SoloButton(DeviceContext deviceContext, Transport transport, TrackBank trackBank, int index) {
         super(transport, trackBank);
         this.index = index;
-        this.deviceControlContext = deviceControlContext;
+        this.deviceContext = deviceContext;
     }
 
     @Override
     protected void logic() {
         trackBank.getItemAt(index).solo().toggle();
-        deviceControlContext.midiOut.sendMidi(0xB0, BUTTON_SOLO_1 + index, trackBank.getItemAt(index).solo().get() ? 0 : 127);
+        deviceContext.toggleLED(BUTTON_ID_FIRST + index, trackBank.getItemAt(index).solo().get());
     }
+
 }

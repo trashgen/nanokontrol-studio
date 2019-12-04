@@ -14,7 +14,7 @@ class SceneManager {
     private static final String SYS_EX_PATTERN = "f0 42 40 00 01 37 02 00 00 4f ?? f7";
 
     private Scene mixScene;
-    private final DeviceControlContext deviceControlContext;
+    private final DeviceContext deviceContext;
 
     // Scene button values
 //    public final static Map<String, Scene> SysexHandlers = new HashMap<String, Scene>() {{
@@ -26,11 +26,11 @@ class SceneManager {
 //    }};
 
     SceneManager(MidiOut midiOut, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
-        deviceControlContext = new DeviceControlContext(midiOut);
+        deviceContext = new DeviceContext(midiOut);
         trackBank.followCursorTrack(cursorTrack);
         mixScene = new MixScene(
-                new SimpleButtonSet(transport, trackBank, cursorTrack, deviceControlContext),
-                new ContinuousControlSet(transport, trackBank, cursorTrack, deviceControlContext)
+                new SimpleButtonSet(transport, trackBank, cursorTrack, deviceContext),
+                new ContinuousControlSet(transport, trackBank, cursorTrack, deviceContext)
         );
     }
 

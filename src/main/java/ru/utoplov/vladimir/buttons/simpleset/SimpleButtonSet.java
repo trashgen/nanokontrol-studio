@@ -6,24 +6,16 @@ import com.bitwig.extension.controller.api.Track;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.ButtonSet;
-import ru.utoplov.vladimir.DeviceControlContext;
+import ru.utoplov.vladimir.DeviceContext;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SimpleButtonSet implements ButtonSet {
 
-    private final TrackBank trackBank;
-    private final Transport transport;
-    private final CursorTrack cursorTrack;
-
     private final Map<Integer, SimpleButton> buttons = new HashMap<>();
 
-    public SimpleButtonSet(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, DeviceControlContext deviceControlContext) {
-        this.trackBank = trackBank;
-        this.transport = transport;
-        this.cursorTrack = cursorTrack;
-
+    public SimpleButtonSet(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, DeviceContext deviceContext) {
         transport.isPlaying().markInterested();
         transport.isArrangerRecordEnabled().markInterested();
 
@@ -33,65 +25,41 @@ public class SimpleButtonSet implements ButtonSet {
             track.solo().markInterested();
         }
 
-        buttons.put(BUTTON_TRANSPORT_REWIND, new RewindButton(transport, trackBank));
-        buttons.put(BUTTON_TRANSPORT_STOP, new StopButton(deviceControlContext, transport, trackBank));
-        buttons.put(BUTTON_TRANSPORT_PLAY, new PlayButton(deviceControlContext, transport, trackBank));
-        buttons.put(BUTTON_TRANSPORT_RECORD, new RecordButton(deviceControlContext, transport, trackBank));
+        buttons.put(RewindButton.BUTTON_ID, new RewindButton(transport, trackBank));
+        buttons.put(StopButton.BUTTON_ID, new StopButton(deviceContext, transport, trackBank));
+        buttons.put(PlayButton.BUTTON_ID, new PlayButton(deviceContext, transport, trackBank));
+        buttons.put(RecordButton.BUTTON_ID, new RecordButton(deviceContext, transport, trackBank));
 
-        buttons.put(BUTTON_SEND_BANK_PREV, new PrevSendBankButton(transport, trackBank, cursorTrack));
-        buttons.put(BUTTON_SEND_BANK_NEXT, new NextSendBankButton(transport, trackBank, cursorTrack));
+        buttons.put(PrevSendBankButton.BUTTON_ID, new PrevSendBankButton(transport, trackBank, cursorTrack));
+        buttons.put(NextSendBankButton.BUTTON_ID, new NextSendBankButton(transport, trackBank, cursorTrack));
 
-        buttons.put(BUTTON_TRACK_BANK_PREV, new PrevTrackBankButton(transport, trackBank));
-        buttons.put(BUTTON_TRACK_BANK_NEXT, new NextTrackBankButton(transport, trackBank));
+        buttons.put(PrevTrackBankButton.BUTTON_ID, new PrevTrackBankButton(transport, trackBank));
+        buttons.put(NextTrackBankButton.BUTTON_ID, new NextTrackBankButton(transport, trackBank));
 
-        for (int i = BUTTON_MUTE_1; i <= BUTTON_MUTE_8; i++) {
-            buttons.put(i, new MuteButton(deviceControlContext, transport, trackBank, i - BUTTON_MUTE_1));
+        for (int i = MuteButton.BUTTON_ID_FIRST; i <= MuteButton.BUTTON_ID_LAST; i++) {
+            buttons.put(i, new MuteButton(deviceContext, transport, trackBank, i - MuteButton.BUTTON_ID_FIRST));
         }
-        for (int i = BUTTON_SOLO_1; i <= BUTTON_SOLO_8; i++) {
-            buttons.put(i, new SoloButton(deviceControlContext, transport, trackBank, i - BUTTON_SOLO_1));
+        for (int i = SoloButton.BUTTON_ID_FIRST; i <= SoloButton.BUTTON_ID_LAST; i++) {
+            buttons.put(i, new SoloButton(deviceContext, transport, trackBank, i - SoloButton.BUTTON_ID_FIRST));
         }
-        // TODO : what the diff with 'Select' ???
-//        for (int i = BUTTON_RECORD_1; i <= BUTTON_RECORD_8; i++) {
-//            buttons.put(i, new SoloButton(transport, trackBank, cursorTrack, i - BUTTON_RECORD_1));
-//        }
-        for (int i = BUTTON_SELECT_1; i <= BUTTON_SELECT_8; i++) {
-            buttons.put(i, new SelectButton(deviceControlContext, transport, trackBank, i - BUTTON_SELECT_1));
+        for (int i = SelectButton.BUTTON_ID_FIRST; i <= SelectButton.BUTTON_ID_LAST; i++) {
+            buttons.put(i, new SelectButton(deviceContext, transport, trackBank, i - SelectButton.BUTTON_ID_FIRST));
         }
     }
 
     @Override
     public boolean isValid(ShortMidiMessage msg) {
-        return buttons.keySet().stream().anyMatch(code -> msg.getData1() == code);
+        return buttons.get(msg.getData1()) != null;
     }
 
     @Override
     public boolean execute(ShortMidiMessage msg) {
         SimpleButton button = buttons.get(msg.getData1());
-        button.execute(msg);
-        return true;
+        if (button != null) {
+            button.execute(msg);
+            return true;
+        }
+        return false;
     }
-
-    final static int BUTTON_MUTE_1 = 21;
-    private final static int BUTTON_MUTE_8 = 28;
-
-    public final static int BUTTON_SOLO_1 = 29;
-    private final static int BUTTON_SOLO_8 = 36;
-
-    public final static int BUTTON_RECORD_1 = 38;
-    public final static int BUTTON_RECORD_8 = 45;
-
-    public final static int BUTTON_SELECT_1 = 46;
-    private final static int BUTTON_SELECT_8 = 53;
-
-    public final static int BUTTON_SEND_BANK_PREV = 56;
-    public final static int BUTTON_SEND_BANK_NEXT = 57;
-
-    public final static int BUTTON_TRACK_BANK_PREV = 60;
-    public final static int BUTTON_TRACK_BANK_NEXT = 61;
-
-    private final static int BUTTON_TRANSPORT_REWIND = 62;
-    public final static int BUTTON_TRANSPORT_STOP = 63;
-    final static int BUTTON_TRANSPORT_PLAY = 80;
-    public final static int BUTTON_TRANSPORT_RECORD = 81;
 
 }

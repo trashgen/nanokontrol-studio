@@ -2,23 +2,23 @@ package ru.utoplov.vladimir.buttons.simpleset;
 
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.DeviceControlContext;
-
-import static ru.utoplov.vladimir.buttons.simpleset.SimpleButtonSet.BUTTON_TRANSPORT_PLAY;
+import ru.utoplov.vladimir.DeviceContext;
 
 public class PlayButton extends SimpleButton {
 
-    private DeviceControlContext deviceControlContext;
+    final static int BUTTON_ID = 80;
 
-    public PlayButton(DeviceControlContext deviceControlContext, Transport transport, TrackBank trackBank) {
+    private DeviceContext deviceContext;
+
+    public PlayButton(DeviceContext deviceContext, Transport transport, TrackBank trackBank) {
         super(transport, trackBank);
-        this.deviceControlContext = deviceControlContext;
+        this.deviceContext = deviceContext;
     }
 
     @Override
     protected void logic() {
         transport.play();
-        deviceControlContext.midiOut.sendMidi(0xB0, BUTTON_TRANSPORT_PLAY, transport.isPlaying().get() ? 0 : 127);
+        deviceContext.toggleLED(BUTTON_ID, transport.isPlaying().get());
     }
 
 }

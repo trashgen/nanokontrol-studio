@@ -2,27 +2,24 @@ package ru.utoplov.vladimir.buttons.simpleset;
 
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.DeviceControlContext;
-
-import static ru.utoplov.vladimir.buttons.simpleset.SimpleButtonSet.BUTTON_TRANSPORT_PLAY;
-import static ru.utoplov.vladimir.buttons.simpleset.SimpleButtonSet.BUTTON_TRANSPORT_RECORD;
+import ru.utoplov.vladimir.DeviceContext;
 
 public class StopButton extends SimpleButton {
 
-    private DeviceControlContext deviceControlContext;
+    final static int BUTTON_ID = 63;
 
-    StopButton(DeviceControlContext deviceControlContext, Transport transport, TrackBank trackBank) {
+    private DeviceContext deviceContext;
+
+    StopButton(DeviceContext deviceContext, Transport transport, TrackBank trackBank) {
         super(transport, trackBank);
-        this.deviceControlContext = deviceControlContext;
+        this.deviceContext = deviceContext;
     }
 
     @Override
     protected void logic() {
         transport.stop();
-        deviceControlContext.ArrangementPosition = 0;
-        deviceControlContext.midiOut.sendMidi(0xB0, BUTTON_TRANSPORT_PLAY, 0);
-//        if (!transport.isArrangerRecordEnabled().get()) {
-        deviceControlContext.midiOut.sendMidi(0xB0, BUTTON_TRANSPORT_RECORD, 0);
-//        }
+        deviceContext.ArrangementPosition = 0;
+        deviceContext.ledOFF(PlayButton.BUTTON_ID);
+        deviceContext.ledOFF(RecordButton.BUTTON_ID);
     }
 }
