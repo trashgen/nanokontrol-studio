@@ -30,8 +30,8 @@ class SceneManager {
         deviceContext = new DeviceContext(midiOut);
         trackBank.followCursorTrack(cursorTrack);
         mixScene = new MixScene(
-                new SimpleButtonSet(transport, trackBank, cursorTrack, deviceContext),
-                new ContinuousControlSet(transport, trackBank, cursorTrack, deviceContext),
+                new SimpleButtonSet(deviceContext, transport, trackBank, cursorTrack),
+                new ContinuousControlSet(deviceContext, transport, trackBank, cursorTrack),
                 new StateControlSet(deviceContext)
         );
     }

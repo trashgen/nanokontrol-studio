@@ -12,7 +12,7 @@ public class ContinuousControlSet implements ButtonSet {
 
     private final Map<Integer, ContinuousControl> controls = new HashMap<>();
 
-    public ContinuousControlSet(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, DeviceContext deviceContext) {
+    public ContinuousControlSet(DeviceContext deviceContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         transport.getPosition().markInterested();
 
 //        cursorTrack.volume().value().markInterested();
@@ -34,10 +34,10 @@ public class ContinuousControlSet implements ButtonSet {
         controls.put(WheelForwardControl.BUTTON_ID, new WheelForwardControl(deviceContext, transport, trackBank, cursorTrack));
 
         for (int i = FaderControl.BUTTON_ID_FIRST; i <= FaderControl.BUTTON_ID_LAST; i++) {
-            controls.put(i, new FaderControl(trackBank, cursorTrack, i - FaderControl.BUTTON_ID_FIRST));
+            controls.put(i, new FaderControl(deviceContext, trackBank, cursorTrack, i - FaderControl.BUTTON_ID_FIRST));
         }
         for (int i = KnobControl.BUTTON_ID_FIRST; i <= KnobControl.BUTTON_ID_LAST; i++) {
-            controls.put(i, new KnobControl(trackBank, cursorTrack, i - KnobControl.BUTTON_ID_FIRST));
+            controls.put(i, new KnobControl(deviceContext, trackBank, cursorTrack, i - KnobControl.BUTTON_ID_FIRST));
         }
     }
 

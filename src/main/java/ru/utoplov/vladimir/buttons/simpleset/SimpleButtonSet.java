@@ -15,7 +15,7 @@ public class SimpleButtonSet implements ButtonSet {
 
     private final Map<Integer, SimpleButton> buttons = new HashMap<>();
 
-    public SimpleButtonSet(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, DeviceContext deviceContext) {
+    public SimpleButtonSet(DeviceContext deviceContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         transport.isPlaying().markInterested();
         transport.isArrangerRecordEnabled().markInterested();
 
