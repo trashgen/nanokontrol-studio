@@ -4,6 +4,7 @@ import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.MidiOut;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
+import ru.utoplov.vladimir.buttons.StateControlSet;
 import ru.utoplov.vladimir.buttons.continuousset.ContinuousControlSet;
 import ru.utoplov.vladimir.buttons.simpleset.SimpleButtonSet;
 import ru.utoplov.vladimir.view.MixScene;
@@ -30,7 +31,8 @@ class SceneManager {
         trackBank.followCursorTrack(cursorTrack);
         mixScene = new MixScene(
                 new SimpleButtonSet(transport, trackBank, cursorTrack, deviceContext),
-                new ContinuousControlSet(transport, trackBank, cursorTrack, deviceContext)
+                new ContinuousControlSet(transport, trackBank, cursorTrack, deviceContext),
+                new StateControlSet(deviceContext)
         );
     }
 

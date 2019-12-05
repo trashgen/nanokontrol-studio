@@ -31,10 +31,10 @@ public class SimpleButtonSet implements ButtonSet {
         buttons.put(RecordButton.BUTTON_ID, new RecordButton(deviceContext, transport, trackBank));
 
         buttons.put(PrevSendBankButton.BUTTON_ID, new PrevSendBankButton(transport, trackBank, cursorTrack));
-        buttons.put(NextSendBankButton.BUTTON_ID, new NextSendBankButton(transport, trackBank, cursorTrack));
+        buttons.put(NextSendBankButton.BUTTON_ID, new NextSendBankButton(deviceContext, transport, trackBank, cursorTrack));
 
-        buttons.put(PrevTrackBankButton.BUTTON_ID, new PrevTrackBankButton(transport, trackBank));
-        buttons.put(NextTrackBankButton.BUTTON_ID, new NextTrackBankButton(transport, trackBank));
+        buttons.put(PrevTrackBankButton.BUTTON_ID, new PrevTrackBankButton(deviceContext, transport, trackBank));
+        buttons.put(NextTrackBankButton.BUTTON_ID, new NextTrackBankButton(deviceContext, transport, trackBank));
 
         for (int i = MuteButton.BUTTON_ID_FIRST; i <= MuteButton.BUTTON_ID_LAST; i++) {
             buttons.put(i, new MuteButton(deviceContext, transport, trackBank, i - MuteButton.BUTTON_ID_FIRST));

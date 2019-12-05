@@ -18,8 +18,16 @@ public class DeviceContext {
     public DeviceContext(MidiOut midiOut) {
         this.midiOut = midiOut;
 
-        states.put(StateControlSet.BUTTON_CYCLE_STATE, false);
         states.put(StateControlSet.BUTTON_SET_STATE, false);
+        states.put(StateControlSet.BUTTON_CYCLE_STATE, false);
+        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_1, false);
+        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_2, false);
+        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_3, false);
+        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_4, false);
+        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_5, false);
+        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_6, false);
+        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_7, false);
+        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_8, false);
     }
 
     public void updateStateControl(int buttonID, boolean state) {
@@ -34,11 +42,46 @@ public class DeviceContext {
         return states.get(StateControlSet.BUTTON_SET_STATE);
     }
 
-    public void ledON(int buttonID) {
-        sendCC(buttonID, 0);
+    public int getTrackRecordPressed(int buttonID) {
+        // TODO : Rework !
+        Boolean state = states.get(buttonID);
+        if (state != null && state) {
+            return buttonID - StateControlSet.BUTTON_TRACK_RECORD_STATE_1;
+        }
+        return StateControlSet.BUTTON_TRACK_RECORD_STATE_NOT_PRESSED;
+
+
+//        if ( != null) {
+//            return 0;
+//        }
+//        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_2) != null) {
+//            return 1;
+//        }
+//        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_3) != null) {
+//            return 2;
+//        }
+//        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_4) != null) {
+//            return 3;
+//        }
+//        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_5) != null) {
+//            return 4;
+//        }
+//        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_6) != null) {
+//            return 5;
+//        }
+//        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_7) != null) {
+//            return 6;
+//        }
+//        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_8) != null) {
+//            return 7;
+//        }
     }
 
     public void ledOFF(int buttonID) {
+        sendCC(buttonID, 0);
+    }
+
+    public void ledON(int buttonID) {
         sendCC(buttonID, 127);
     }
 

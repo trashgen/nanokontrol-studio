@@ -2,6 +2,7 @@ package ru.utoplov.vladimir.view;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import ru.utoplov.vladimir.ButtonSet;
+import ru.utoplov.vladimir.buttons.StateControlSet;
 import ru.utoplov.vladimir.buttons.continuousset.ContinuousControlSet;
 import ru.utoplov.vladimir.buttons.simpleset.SimpleButtonSet;
 
@@ -14,9 +15,10 @@ public class MixScene implements Scene {
 
     private final List<ButtonSet> buttonSets = new ArrayList<>();
 
-    public MixScene(SimpleButtonSet simpleButtonSet, ContinuousControlSet continuousControlSet) {
+    public MixScene(SimpleButtonSet simpleButtonSet, ContinuousControlSet continuousControlSet, StateControlSet stateControlSet) {
         buttonSets.add(simpleButtonSet);
         buttonSets.add(continuousControlSet);
+        buttonSets.add(stateControlSet);
     }
 
     @Override
