@@ -26,7 +26,7 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
         sceneManager = new SceneManager(
                 getHost().getMidiOutPort(0),
                 getHost().createTransport(),
-                getHost().createTrackBank(8, 0, 0, true),
+                getHost().createTrackBank(8, 0, 0, false),
                 getHost().createCursorTrack(NANO_KONTROL_STUDIO_ID, NANO_KONTROL_STUDIO_NAME, 8, 0, true));
         currentScene = sceneManager.getFirstScene();
 

@@ -30,7 +30,7 @@ public class SimpleButtonSet implements ButtonSet {
         buttons.put(PlayButton.BUTTON_ID, new PlayButton(deviceContext, transport, trackBank));
         buttons.put(RecordButton.BUTTON_ID, new RecordButton(deviceContext, transport, trackBank));
 
-        buttons.put(PrevSendBankButton.BUTTON_ID, new PrevSendBankButton(transport, trackBank, cursorTrack));
+        buttons.put(PrevSendBankButton.BUTTON_ID, new PrevSendBankButton(deviceContext, transport, trackBank, cursorTrack));
         buttons.put(NextSendBankButton.BUTTON_ID, new NextSendBankButton(deviceContext, transport, trackBank, cursorTrack));
 
         buttons.put(PrevTrackBankButton.BUTTON_ID, new PrevTrackBankButton(deviceContext, transport, trackBank));
