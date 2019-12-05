@@ -24,7 +24,7 @@ class WheelForwardControl extends ContinuousControl {
 
     @Override
     void logic(ShortMidiMessage msg) {
-        int trackRecordPressedIndex = deviceContext.getTrackRecordPressed(msg.getData1());
+        int trackRecordPressedIndex = deviceContext.getTrackRecordPressed();
         if (trackRecordPressedIndex == StateControlSet.BUTTON_TRACK_RECORD_STATE_NOT_PRESSED) {
             if (deviceContext.isCycleToggleStateActive()) {
                 cursorTrack.volume().value().inc(1, 512);

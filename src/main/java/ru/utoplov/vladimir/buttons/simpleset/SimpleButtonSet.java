@@ -15,7 +15,7 @@ public class SimpleButtonSet implements ButtonSet {
 
     private final Map<Integer, SimpleButton> buttons = new HashMap<>();
 
-    public SimpleButtonSet(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, DeviceContext deviceContext) {
+    public SimpleButtonSet(DeviceContext deviceContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         transport.isPlaying().markInterested();
         transport.isArrangerRecordEnabled().markInterested();
 
@@ -30,7 +30,7 @@ public class SimpleButtonSet implements ButtonSet {
         buttons.put(PlayButton.BUTTON_ID, new PlayButton(deviceContext, transport, trackBank));
         buttons.put(RecordButton.BUTTON_ID, new RecordButton(deviceContext, transport, trackBank));
 
-        buttons.put(PrevSendBankButton.BUTTON_ID, new PrevSendBankButton(transport, trackBank, cursorTrack));
+        buttons.put(PrevSendBankButton.BUTTON_ID, new PrevSendBankButton(deviceContext, transport, trackBank, cursorTrack));
         buttons.put(NextSendBankButton.BUTTON_ID, new NextSendBankButton(deviceContext, transport, trackBank, cursorTrack));
 
         buttons.put(PrevTrackBankButton.BUTTON_ID, new PrevTrackBankButton(deviceContext, transport, trackBank));
