@@ -64,8 +64,4 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
         getHost().showPopupNotification(String.format("Set mode [%s]", currentScene.getName()));
     }
 
-    private boolean useShift(ShortMidiMessage msg) {
-        return msg.getData1() == NanoKONTROLStudioExtensionDefinition.BUTTON_SHIFT && msg.getData2() == 127;
-    }
-
 }

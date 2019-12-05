@@ -10,13 +10,6 @@ import java.util.UUID;
 public class NanoKONTROLStudioExtensionDefinition extends ControllerExtensionDefinition {
     private static final UUID DRIVER_ID = UUID.fromString("dc010196-7101-4519-ad10-ab5634f76da5");
 
-    // Cycle button used as shift. Press'n'Hold to use.
-    public final static int BUTTON_SHIFT = 54;
-
-    public final static int BUTTON_MARKER_SET = 55;
-    public final static int BUTTON_TRANSPORT_BACKWARD = 58;
-    public final static int BUTTON_TRANSPORT_FAST_FORWARD = 59;
-
     public NanoKONTROLStudioExtensionDefinition() {
     }
 
