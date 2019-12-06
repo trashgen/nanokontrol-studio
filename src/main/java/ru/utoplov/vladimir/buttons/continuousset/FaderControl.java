@@ -23,7 +23,7 @@ public class FaderControl extends ContinuousControl {
 
     @Override
     void logic(ShortMidiMessage msg) {
-        if (!deviceContext.isCycleToggleStateActive()) {
+        if (deviceContext.isCycleToggleStateActive()) {
             SettableRangedValue value = trackBank.getItemAt(index).volume().value();
             double currValue = msg.getData2();
             if (deviceContext.isSetPressed()) {

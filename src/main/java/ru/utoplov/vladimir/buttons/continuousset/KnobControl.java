@@ -23,7 +23,7 @@ public class KnobControl extends ContinuousControl {
 
     @Override
     void logic(ShortMidiMessage msg) {
-        if (!deviceContext.isCycleToggleStateActive()) {
+        if (deviceContext.isCycleToggleStateActive()) {
             SettableRangedValue value = cursorTrack.sendBank().getItemAt(index).value();
             double currValue = msg.getData2();
             if (deviceContext.isSetPressed()) {
