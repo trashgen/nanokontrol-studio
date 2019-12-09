@@ -17,6 +17,7 @@ public class PlayButton extends SimpleButton {
 
     @Override
     protected void logic() {
+        transport.setPosition(deviceContext.ArrangementPosition);
         transport.play();
         deviceContext.toggleLED(BUTTON_ID, transport.isPlaying().get());
     }
