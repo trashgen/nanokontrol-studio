@@ -13,7 +13,6 @@ class WheelForwardControl extends ContinuousControl {
     final static int BUTTON_ID = 83;
 
     private Transport transport;
-
     private DeviceContext deviceContext;
 
     WheelForwardControl(DeviceContext deviceContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {

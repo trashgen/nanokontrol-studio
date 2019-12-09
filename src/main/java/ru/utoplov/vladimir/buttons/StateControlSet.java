@@ -20,8 +20,6 @@ public class StateControlSet implements ButtonSet {
 
     public static final int BUTTON_CYCLE_STATE = 54;
     public final static int BUTTON_SET_STATE = 55;
-    public final static int BUTTON_TRANSPORT_BACKWARD = 58;
-    public final static int BUTTON_TRANSPORT_FAST_FORWARD = 59;
 
     private final DeviceContext deviceContext;
 
@@ -35,8 +33,6 @@ public class StateControlSet implements ButtonSet {
                 .stream(new Integer[]{
                         BUTTON_CYCLE_STATE,
                         BUTTON_SET_STATE,
-                        BUTTON_TRANSPORT_BACKWARD,
-                        BUTTON_TRANSPORT_FAST_FORWARD,
                         BUTTON_TRACK_RECORD_STATE_1,
                         BUTTON_TRACK_RECORD_STATE_2,
                         BUTTON_TRACK_RECORD_STATE_3,

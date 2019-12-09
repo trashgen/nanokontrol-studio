@@ -17,6 +17,7 @@ public class SimpleButtonSet implements ButtonSet {
 
     public SimpleButtonSet(DeviceContext deviceContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         transport.isPlaying().markInterested();
+        transport.getInPosition().markInterested();
         transport.isArrangerRecordEnabled().markInterested();
 
         for (int i = 0; i < trackBank.getSizeOfBank(); i++) {
@@ -24,6 +25,9 @@ public class SimpleButtonSet implements ButtonSet {
             track.mute().markInterested();
             track.solo().markInterested();
         }
+
+        buttons.put(BackwardButton.BUTTON_ID, new BackwardButton(deviceContext, transport, trackBank));
+        buttons.put(ForwardButton.BUTTON_ID, new ForwardButton(deviceContext, transport, trackBank));
 
         buttons.put(RewindButton.BUTTON_ID, new RewindButton(transport, trackBank));
         buttons.put(StopButton.BUTTON_ID, new StopButton(deviceContext, transport, trackBank));
