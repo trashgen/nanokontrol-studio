@@ -1,25 +1,26 @@
 package ru.utoplov.vladimir.buttons.simpleset;
 
+import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.DeviceContext;
+import ru.utoplov.vladimir.ControllerContext;
 
 public class PlayButton extends SimpleButton {
 
     final static int BUTTON_ID = 80;
 
-    private DeviceContext deviceContext;
+    private ControllerContext controllerContext;
 
-    public PlayButton(DeviceContext deviceContext, Transport transport, TrackBank trackBank) {
-        super(transport, trackBank);
-        this.deviceContext = deviceContext;
+    public PlayButton(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+        super(transport, trackBank, cursorTrack);
+        this.controllerContext = controllerContext;
     }
 
     @Override
     protected void logic() {
-        transport.setPosition(deviceContext.ArrangementPosition);
+        transport.setPosition(controllerContext.ArrangementPosition);
         transport.play();
-        deviceContext.toggleLED(BUTTON_ID, transport.isPlaying().get());
+        controllerContext.toggleLED(BUTTON_ID, transport.isPlaying().get());
     }
 
 }

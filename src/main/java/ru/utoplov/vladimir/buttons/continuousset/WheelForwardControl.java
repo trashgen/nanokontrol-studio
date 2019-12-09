@@ -5,34 +5,32 @@ import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.SendBank;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.DeviceContext;
+import ru.utoplov.vladimir.ControllerContext;
 import ru.utoplov.vladimir.buttons.StateControlSet;
 
 class WheelForwardControl extends ContinuousControl {
 
     final static int BUTTON_ID = 83;
 
-    private Transport transport;
-    private DeviceContext deviceContext;
+    private ControllerContext controllerContext;
 
-    WheelForwardControl(DeviceContext deviceContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
-        super(trackBank, cursorTrack);
-        this.transport = transport;
-        this.deviceContext = deviceContext;
+    WheelForwardControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+        super(transport, trackBank, cursorTrack);
+        this.controllerContext = controllerContext;
     }
 
     @Override
     void logic(ShortMidiMessage msg) {
-        int trackRecordPressedIndex = deviceContext.getTrackRecordPressed();
+        int trackRecordPressedIndex = controllerContext.getTrackRecordPressed();
         if (trackRecordPressedIndex == StateControlSet.BUTTON_TRACK_RECORD_STATE_NOT_PRESSED) {
-            if (deviceContext.isCycleToggleStateActive()) {
+            if (controllerContext.isCycleToggleStateActive()) {
                 cursorTrack.volume().value().inc(1, 512);
-            } else if (deviceContext.isSetPressed()) {
-                deviceContext.ArrangementPosition += 4;
-                transport.setPosition(deviceContext.ArrangementPosition);
+            } else if (controllerContext.isSetPressed()) {
+                controllerContext.ArrangementPosition += 4;
+                transport.setPosition(controllerContext.ArrangementPosition);
             } else {
-                deviceContext.ArrangementPosition++;
-                transport.setPosition(deviceContext.ArrangementPosition);
+                controllerContext.ArrangementPosition++;
+                transport.setPosition(controllerContext.ArrangementPosition);
             }
         } else {
             SendBank sendBank = cursorTrack.sendBank();

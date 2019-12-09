@@ -10,6 +10,12 @@ import java.util.UUID;
 public class NanoKONTROLStudioExtensionDefinition extends ControllerExtensionDefinition {
     private static final UUID DRIVER_ID = UUID.fromString("dc010196-7101-4519-ad10-ab5634f76da5");
 
+    public static final String KEY_SCENE_MIX = "f042400001370200004f00f7";
+    public static final String KEY_DEVICE_MIX = "f042400001370200004f01f7";
+//    public static final String KEY_SCENE_MIX = "f042400001370200004f02f7";
+//    public static final String KEY_SCENE_MIX = "f042400001370200004f03f7";
+//    public static final String KEY_SCENE_MIX = "f042400001370200004f04f7";
+
     public NanoKONTROLStudioExtensionDefinition() {
     }
 

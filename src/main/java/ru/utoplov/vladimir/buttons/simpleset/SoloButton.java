@@ -1,9 +1,10 @@
 package ru.utoplov.vladimir.buttons.simpleset;
 
+import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.SoloValue;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.DeviceContext;
+import ru.utoplov.vladimir.ControllerContext;
 
 public class SoloButton extends SimpleButton {
 
@@ -11,28 +12,28 @@ public class SoloButton extends SimpleButton {
     final static int BUTTON_ID_LAST = 36;
 
     private int index;
-    private DeviceContext deviceContext;
+    private ControllerContext controllerContext;
 
-    SoloButton(DeviceContext deviceContext, Transport transport, TrackBank trackBank, int index) {
-        super(transport, trackBank);
+    SoloButton(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, int index) {
+        super(transport, trackBank, cursorTrack);
         this.index = index;
-        this.deviceContext = deviceContext;
+        this.controllerContext = controllerContext;
     }
 
     @Override
     protected void logic() {
         SoloValue solo = trackBank.getItemAt(index).solo();
-        if (deviceContext.isSetPressed()) {
+        if (controllerContext.isSetPressed()) {
             solo.toggle(true);
             for (int i = BUTTON_ID_FIRST; i <= BUTTON_ID_LAST; i++) {
                 if ((i - BUTTON_ID_FIRST) != index) {
-                    deviceContext.ledOFF(i);
+                    controllerContext.ledOFF(i);
                 }
             }
         } else {
             solo.toggle();
         }
-        deviceContext.toggleLED(BUTTON_ID_FIRST + index, solo.get());
+        controllerContext.toggleLED(BUTTON_ID_FIRST + index, solo.get());
     }
 
 }

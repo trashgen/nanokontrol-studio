@@ -6,7 +6,7 @@ import ru.utoplov.vladimir.buttons.StateControlSet;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DeviceContext {
+public class ControllerContext {
 
     private static final int MIDI_CC_EVENT_ID = 0xB0;
 
@@ -15,7 +15,7 @@ public class DeviceContext {
     private MidiOut midiOut;
     private final Map<Integer, Boolean> states = new HashMap<>();
 
-    public DeviceContext(MidiOut midiOut) {
+    public ControllerContext(MidiOut midiOut) {
         this.midiOut = midiOut;
 
         states.put(StateControlSet.BUTTON_SET_STATE, false);
@@ -84,6 +84,10 @@ public class DeviceContext {
         } else {
             sendCC(buttonID, 127);
         }
+    }
+
+    public void sendSysex(final String data) {
+        midiOut.sendSysex(data);
     }
 
     private void sendCC(int buttonID, int value) {

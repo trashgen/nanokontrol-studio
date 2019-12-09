@@ -6,55 +6,38 @@ import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.buttons.StateControlSet;
 import ru.utoplov.vladimir.buttons.continuousset.ContinuousControlSet;
-import ru.utoplov.vladimir.buttons.simpleset.SimpleButtonSet;
+import ru.utoplov.vladimir.buttons.simpleset.SimpleControlSet;
+import ru.utoplov.vladimir.view.DeviceScene;
 import ru.utoplov.vladimir.view.MixScene;
 import ru.utoplov.vladimir.view.Scene;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static ru.utoplov.vladimir.NanoKONTROLStudioExtensionDefinition.KEY_DEVICE_MIX;
+import static ru.utoplov.vladimir.NanoKONTROLStudioExtensionDefinition.KEY_SCENE_MIX;
+
 class SceneManager {
 
-    private static final String SYS_EX_PATTERN = "f0 42 40 00 01 37 02 00 00 4f ?? f7";
-
-    private Scene mixScene;
-    private final DeviceContext deviceContext;
-
-    // Scene button values
-//    public final static Map<String, Scene> SysexHandlers = new HashMap<String, Scene>() {{
-//        put("f042400001370200004f00f7", new MixScene());
-//        put("f042400001370200004f01f7", new SendView());
-//        put("f042400001370200004f02f7", new EconomyMixView());
-//        put("f042400001370200004f03f7", null);
-//        put("f042400001370200004f04f7", null);
-//    }};
+    private final Map<String, Scene> scenes = new HashMap<>();
 
     SceneManager(MidiOut midiOut, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
-        deviceContext = new DeviceContext(midiOut);
+        ControllerContext controllerContext = new ControllerContext(midiOut);
         trackBank.followCursorTrack(cursorTrack);
-        mixScene = new MixScene(
-                new SimpleButtonSet(deviceContext, transport, trackBank, cursorTrack),
-                new ContinuousControlSet(deviceContext, transport, trackBank, cursorTrack),
-                new StateControlSet(deviceContext)
-        );
+        scenes.put(KEY_SCENE_MIX, new MixScene()
+                .addControlSet(new SimpleControlSet(controllerContext, transport, trackBank, cursorTrack))
+                .addControlSet(new ContinuousControlSet(controllerContext, transport, trackBank, cursorTrack))
+                .addControlSet(new StateControlSet(controllerContext)
+                ));
+        scenes.put(KEY_DEVICE_MIX, new DeviceScene());
     }
-
-//    function onSysex(data)
-//    {
-//        //logf("sysex [{0}]", data);
-//
-//        // change volume for selected track
-//        if (data.matchesHexPattern("f0 7f 7f 04 01 ?? F7"))
-//        {
-//            var value = data.hexByteAt(5);
-//            logGraphite("global", "slider", 8, value);
-//            cursorTrack.getVolume().set(value, 128);
-//        }
-//    }
 
     Scene onSceneChange(final String data) {
-        return mixScene;
+        return scenes.get(data);
     }
 
-    Scene getFirstScene() {
-        return mixScene;
+    Scene getMixScene() {
+        return scenes.get(KEY_SCENE_MIX);
     }
 
 }

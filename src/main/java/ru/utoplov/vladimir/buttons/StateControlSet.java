@@ -1,12 +1,11 @@
 package ru.utoplov.vladimir.buttons;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
-import ru.utoplov.vladimir.ButtonSet;
-import ru.utoplov.vladimir.DeviceContext;
+import ru.utoplov.vladimir.ControllerContext;
 
 import java.util.Arrays;
 
-public class StateControlSet implements ButtonSet {
+public class StateControlSet extends AbstractControlSet {
 
     public static final int BUTTON_TRACK_RECORD_STATE_1 = 38;
     public static final int BUTTON_TRACK_RECORD_STATE_2 = 39;
@@ -21,10 +20,10 @@ public class StateControlSet implements ButtonSet {
     public static final int BUTTON_CYCLE_STATE = 54;
     public final static int BUTTON_SET_STATE = 55;
 
-    private final DeviceContext deviceContext;
+    private final ControllerContext controllerContext;
 
-    public StateControlSet(DeviceContext deviceContext) {
-        this.deviceContext = deviceContext;
+    public StateControlSet(ControllerContext controllerContext) {
+        this.controllerContext = controllerContext;
     }
 
     @Override
@@ -48,12 +47,12 @@ public class StateControlSet implements ButtonSet {
     public boolean execute(ShortMidiMessage msg) {
         switch (msg.getData2()) {
             case 0:
-                deviceContext.updateStateControl(msg.getData1(), false);
-                deviceContext.ledOFF(msg.getData1());
+                controllerContext.updateStateControl(msg.getData1(), false);
+                controllerContext.ledOFF(msg.getData1());
                 return true;
             case 127:
-                deviceContext.updateStateControl(msg.getData1(), true);
-                deviceContext.ledON(msg.getData1());
+                controllerContext.updateStateControl(msg.getData1(), true);
+                controllerContext.ledON(msg.getData1());
                 return true;
         }
         return false;

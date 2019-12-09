@@ -1,8 +1,8 @@
 package ru.utoplov.vladimir.view;
 
-public class MixScene extends AbstractScene {
+public class DeviceScene extends AbstractScene {
 
-    private final static String SCENE_NAME = "Mix Scene";
+    private final static String SCENE_NAME = "Device Scene";
 
     @Override
     public String getName() {

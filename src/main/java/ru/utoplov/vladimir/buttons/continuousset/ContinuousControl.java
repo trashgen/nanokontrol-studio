@@ -3,18 +3,17 @@ package ru.utoplov.vladimir.buttons.continuousset;
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;
+import com.bitwig.extension.controller.api.Transport;
+import ru.utoplov.vladimir.buttons.AbstractControl;
 
-public abstract class ContinuousControl {
+abstract class ContinuousControl extends AbstractControl {
 
-    protected final TrackBank trackBank;
-    protected final CursorTrack cursorTrack;
-
-    ContinuousControl(TrackBank trackBank, CursorTrack cursorTrack) {
-        this.trackBank = trackBank;
-        this.cursorTrack = cursorTrack;
+    ContinuousControl(Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+        super(transport, trackBank, cursorTrack);
     }
 
-    void execute(ShortMidiMessage msg) {
+    @Override
+    public void execute(ShortMidiMessage msg) {
         logic(msg);
     }
 

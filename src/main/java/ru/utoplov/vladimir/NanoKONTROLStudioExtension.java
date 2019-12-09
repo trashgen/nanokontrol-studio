@@ -28,18 +28,16 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
                 getHost().createTransport(),
                 getHost().createTrackBank(8, 0, 0, true),
                 getHost().createCursorTrack(NANO_KONTROL_STUDIO_ID, NANO_KONTROL_STUDIO_NAME, 8, 0, true));
-        currentScene = sceneManager.getFirstScene();
+        currentScene = sceneManager.getMixScene();
 
-        getHost().showPopupNotification("trashgen NanoKONTROL Studio Initialized");
-        getHost().println("trashgen NanoKONTROL Studio Initialized");
+        getHost().showPopupNotification("NanoKONTROL Studio Initialized");
+        getHost().println("NanoKONTROL Studio Initialized");
     }
 
     /**
      * Called when we receive short MIDI message on port 0.
      */
     private void onMidi0(ShortMidiMessage msg) {
-        // TODO : Check if I have SHIFT. (Yes I can, but not the 'Cycles' Button. Maybe 'Set' or '<<'
-//        getHost().showPopupNotification(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
         getHost().println(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
         if (!currentScene.handleMidiCommand(msg)) {
             getHost().errorln(String.format("Message [%d] not supported", msg.getData1()));

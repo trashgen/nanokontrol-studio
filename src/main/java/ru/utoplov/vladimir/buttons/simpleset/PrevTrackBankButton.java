@@ -1,23 +1,24 @@
 package ru.utoplov.vladimir.buttons.simpleset;
 
+import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.DeviceContext;
+import ru.utoplov.vladimir.ControllerContext;
 
 public class PrevTrackBankButton extends SimpleButton {
 
     final static int BUTTON_ID = 60;
 
-    private DeviceContext deviceContext;
+    private ControllerContext controllerContext;
 
-    PrevTrackBankButton(DeviceContext deviceContext, Transport transport, TrackBank trackBank) {
-        super(transport, trackBank);
-        this.deviceContext = deviceContext;
+    PrevTrackBankButton(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+        super(transport, trackBank, cursorTrack);
+        this.controllerContext = controllerContext;
     }
 
     @Override
     protected void logic() {
-        if (deviceContext.isSetPressed()) {
+        if (controllerContext.isSetPressed()) {
             trackBank.scrollBackwards();
         } else {
             trackBank.scrollPageBackwards();
