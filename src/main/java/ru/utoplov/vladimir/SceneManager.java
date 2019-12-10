@@ -4,9 +4,9 @@ import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.MidiOut;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.buttons.StateControlSet;
-import ru.utoplov.vladimir.buttons.continuousset.ContinuousControlSet;
-import ru.utoplov.vladimir.buttons.simpleset.SimpleControlSet;
+import ru.utoplov.vladimir.controlset.buttonset.mix.SimpleControlSet;
+import ru.utoplov.vladimir.controlset.continuousset.mix.ContinuousControlSet;
+import ru.utoplov.vladimir.controlset.stateset.MixStateControlSet;
 import ru.utoplov.vladimir.view.DeviceScene;
 import ru.utoplov.vladimir.view.MixScene;
 import ru.utoplov.vladimir.view.Scene;
@@ -27,13 +27,18 @@ class SceneManager {
         scenes.put(KEY_SCENE_MIX, new MixScene()
                 .addControlSet(new SimpleControlSet(controllerContext, transport, trackBank, cursorTrack))
                 .addControlSet(new ContinuousControlSet(controllerContext, transport, trackBank, cursorTrack))
-                .addControlSet(new StateControlSet(controllerContext)
+                .addControlSet(new MixStateControlSet(controllerContext)
                 ));
-        scenes.put(KEY_DEVICE_MIX, new DeviceScene());
+        scenes.put(KEY_DEVICE_MIX, new DeviceScene()
+                .addControlSet(new SimpleControlSet(controllerContext, transport, trackBank, cursorTrack)));
     }
 
     Scene onSceneChange(final String data) {
-        return scenes.get(data);
+        Scene scene = scenes.get(data);
+        if (scene == null) {
+            scene = scenes.get(KEY_SCENE_MIX);
+        }
+        return scene;
     }
 
     Scene getMixScene() {

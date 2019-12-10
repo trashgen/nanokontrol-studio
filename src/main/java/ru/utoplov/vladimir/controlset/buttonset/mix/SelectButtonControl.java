@@ -1,11 +1,11 @@
-package ru.utoplov.vladimir.buttons.simpleset;
+package ru.utoplov.vladimir.controlset.buttonset.mix;
 
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.ControllerContext;
 
-public class SelectButton extends SimpleButton {
+public class SelectButtonControl extends ButtonControl {
 
     final static int BUTTON_ID_FIRST = 46;
     final static int BUTTON_ID_LAST = 53;
@@ -13,7 +13,7 @@ public class SelectButton extends SimpleButton {
     private int index;
     private ControllerContext controllerContext;
 
-    SelectButton(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, int index) {
+    SelectButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, int index) {
         super(transport, trackBank, cursorTrack);
         this.index = index;
         this.controllerContext = controllerContext;

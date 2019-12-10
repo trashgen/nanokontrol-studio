@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir.buttons.simpleset;
+package ru.utoplov.vladimir.controlset.buttonset.mix;
 
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.SettableBeatTimeValue;
@@ -6,13 +6,13 @@ import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.ControllerContext;
 
-public class ForwardButton extends SimpleButton {
+public class ForwardButtonControl extends ButtonControl {
 
     public final static int BUTTON_ID = 59;
 
     private ControllerContext controllerContext;
 
-    ForwardButton(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    ForwardButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         super(transport, trackBank, cursorTrack);
         this.controllerContext = controllerContext;
     }

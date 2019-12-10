@@ -1,29 +1,27 @@
-package ru.utoplov.vladimir.buttons.simpleset;
+package ru.utoplov.vladimir.controlset.buttonset.mix;
 
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.ControllerContext;
 
-public class NextSendBankButton extends SimpleButton {
+public class PrevTrackBankButtonControl extends ButtonControl {
 
-    final static int BUTTON_ID = 57;
+    final static int BUTTON_ID = 60;
 
-    private CursorTrack cursorTrack;
     private ControllerContext controllerContext;
 
-    NextSendBankButton(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    PrevTrackBankButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         super(transport, trackBank, cursorTrack);
-        this.cursorTrack = cursorTrack;
         this.controllerContext = controllerContext;
     }
 
     @Override
     protected void logic() {
         if (controllerContext.isSetPressed()) {
-            cursorTrack.sendBank().scrollForwards();
+            trackBank.scrollBackwards();
         } else {
-            cursorTrack.sendBank().scrollPageForwards();
+            trackBank.scrollPageBackwards();
         }
     }
 }

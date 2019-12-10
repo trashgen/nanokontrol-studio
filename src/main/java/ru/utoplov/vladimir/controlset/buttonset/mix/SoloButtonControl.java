@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir.buttons.simpleset;
+package ru.utoplov.vladimir.controlset.buttonset.mix;
 
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.SoloValue;
@@ -6,7 +6,7 @@ import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.ControllerContext;
 
-public class SoloButton extends SimpleButton {
+public class SoloButtonControl extends ButtonControl {
 
     final static int BUTTON_ID_FIRST = 29;
     final static int BUTTON_ID_LAST = 36;
@@ -14,7 +14,7 @@ public class SoloButton extends SimpleButton {
     private int index;
     private ControllerContext controllerContext;
 
-    SoloButton(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, int index) {
+    SoloButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, int index) {
         super(transport, trackBank, cursorTrack);
         this.index = index;
         this.controllerContext = controllerContext;

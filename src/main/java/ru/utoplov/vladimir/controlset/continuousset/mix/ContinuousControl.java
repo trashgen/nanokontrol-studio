@@ -1,10 +1,10 @@
-package ru.utoplov.vladimir.buttons.continuousset;
+package ru.utoplov.vladimir.controlset.continuousset.mix;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.buttons.AbstractControl;
+import ru.utoplov.vladimir.controlset.AbstractControl;
 
 abstract class ContinuousControl extends AbstractControl {
 

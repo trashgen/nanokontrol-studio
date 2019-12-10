@@ -1,7 +1,7 @@
 package ru.utoplov.vladimir;
 
 import com.bitwig.extension.controller.api.MidiOut;
-import ru.utoplov.vladimir.buttons.StateControlSet;
+import ru.utoplov.vladimir.controlset.stateset.MixStateControlSet;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,16 +18,16 @@ public class ControllerContext {
     public ControllerContext(MidiOut midiOut) {
         this.midiOut = midiOut;
 
-        states.put(StateControlSet.BUTTON_SET_STATE, false);
-        states.put(StateControlSet.BUTTON_CYCLE_STATE, false);
-        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_1, false);
-        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_2, false);
-        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_3, false);
-        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_4, false);
-        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_5, false);
-        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_6, false);
-        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_7, false);
-        states.put(StateControlSet.BUTTON_TRACK_RECORD_STATE_8, false);
+        states.put(MixStateControlSet.BUTTON_SET_STATE, false);
+        states.put(MixStateControlSet.BUTTON_CYCLE_STATE, false);
+        states.put(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_1, false);
+        states.put(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_2, false);
+        states.put(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_3, false);
+        states.put(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_4, false);
+        states.put(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_5, false);
+        states.put(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_6, false);
+        states.put(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_7, false);
+        states.put(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_8, false);
     }
 
     public void updateStateControl(int buttonID, boolean state) {
@@ -35,39 +35,39 @@ public class ControllerContext {
     }
 
     public boolean isCycleToggleStateActive() {
-        return states.get(StateControlSet.BUTTON_CYCLE_STATE);
+        return states.get(MixStateControlSet.BUTTON_CYCLE_STATE);
     }
 
     public boolean isSetPressed() {
-        return states.get(StateControlSet.BUTTON_SET_STATE);
+        return states.get(MixStateControlSet.BUTTON_SET_STATE);
     }
 
     public int getTrackRecordPressed() {
-        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_1)) {
+        if (states.get(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_1)) {
             return 0;
         }
-        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_2)) {
+        if (states.get(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_2)) {
             return 1;
         }
-        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_3)) {
+        if (states.get(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_3)) {
             return 2;
         }
-        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_4)) {
+        if (states.get(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_4)) {
             return 3;
         }
-        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_5)) {
+        if (states.get(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_5)) {
             return 4;
         }
-        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_6)) {
+        if (states.get(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_6)) {
             return 5;
         }
-        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_7)) {
+        if (states.get(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_7)) {
             return 6;
         }
-        if (states.get(StateControlSet.BUTTON_TRACK_RECORD_STATE_8)) {
+        if (states.get(MixStateControlSet.BUTTON_TRACK_RECORD_STATE_8)) {
             return 7;
         }
-        return StateControlSet.BUTTON_TRACK_RECORD_STATE_NOT_PRESSED;
+        return MixStateControlSet.BUTTON_TRACK_RECORD_STATE_NOT_PRESSED;
     }
 
     public void ledOFF(int buttonID) {

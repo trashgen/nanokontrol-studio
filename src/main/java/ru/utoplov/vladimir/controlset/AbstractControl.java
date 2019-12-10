@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir.buttons;
+package ru.utoplov.vladimir.controlset;
 
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;

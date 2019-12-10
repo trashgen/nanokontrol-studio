@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir.buttons.continuousset;
+package ru.utoplov.vladimir.controlset.continuousset.mix;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.controller.api.CursorTrack;
@@ -6,7 +6,7 @@ import com.bitwig.extension.controller.api.SendBank;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.ControllerContext;
-import ru.utoplov.vladimir.buttons.StateControlSet;
+import ru.utoplov.vladimir.controlset.stateset.MixStateControlSet;
 
 class WheelBackwardControl extends ContinuousControl {
 
@@ -22,7 +22,7 @@ class WheelBackwardControl extends ContinuousControl {
     @Override
     void logic(ShortMidiMessage msg) {
         int trackRecordPressedIndex = controllerContext.getTrackRecordPressed();
-        if (trackRecordPressedIndex == StateControlSet.BUTTON_TRACK_RECORD_STATE_NOT_PRESSED) {
+        if (trackRecordPressedIndex == MixStateControlSet.BUTTON_TRACK_RECORD_STATE_NOT_PRESSED) {
             if (controllerContext.isCycleToggleStateActive()) {
                 cursorTrack.volume().value().inc(-1, 512);
             } else if (controllerContext.isSetPressed()) {

@@ -1,8 +1,8 @@
-package ru.utoplov.vladimir.buttons.continuousset;
+package ru.utoplov.vladimir.controlset.continuousset.mix;
 
 import com.bitwig.extension.controller.api.*;
 import ru.utoplov.vladimir.ControllerContext;
-import ru.utoplov.vladimir.buttons.AbstractControlSet;
+import ru.utoplov.vladimir.controlset.AbstractControlSet;
 
 
 public class ContinuousControlSet extends AbstractControlSet {

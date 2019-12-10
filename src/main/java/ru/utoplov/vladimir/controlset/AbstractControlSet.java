@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir.buttons;
+package ru.utoplov.vladimir.controlset;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import ru.utoplov.vladimir.Control;

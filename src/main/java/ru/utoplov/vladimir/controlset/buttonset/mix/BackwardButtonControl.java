@@ -1,17 +1,18 @@
-package ru.utoplov.vladimir.buttons.simpleset;
+package ru.utoplov.vladimir.controlset.buttonset.mix;
 
 import com.bitwig.extension.controller.api.CursorTrack;
+import com.bitwig.extension.controller.api.SettableBeatTimeValue;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.ControllerContext;
 
-public class PrevSendBankButton extends SimpleButton {
+public class BackwardButtonControl extends ButtonControl {
 
-    final static int BUTTON_ID = 56;
+    public final static int BUTTON_ID = 58;
 
     private ControllerContext controllerContext;
 
-    PrevSendBankButton(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    BackwardButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         super(transport, trackBank, cursorTrack);
         this.controllerContext = controllerContext;
     }
@@ -19,9 +20,8 @@ public class PrevSendBankButton extends SimpleButton {
     @Override
     protected void logic() {
         if (controllerContext.isSetPressed()) {
-            cursorTrack.sendBank().scrollBackwards();
-        } else {
-            cursorTrack.sendBank().scrollPageBackwards();
+            SettableBeatTimeValue value = transport.getInPosition();
+            value.set(transport.getPosition().get());
         }
     }
 }
