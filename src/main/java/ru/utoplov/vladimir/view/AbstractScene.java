@@ -1,7 +1,7 @@
 package ru.utoplov.vladimir.view;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
-import ru.utoplov.vladimir.ControlSet;
+import ru.utoplov.vladimir.core.ControlSet;
 
 import java.util.ArrayList;
 import java.util.List;

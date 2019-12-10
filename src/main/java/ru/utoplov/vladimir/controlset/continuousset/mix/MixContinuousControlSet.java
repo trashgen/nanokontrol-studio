@@ -1,13 +1,13 @@
 package ru.utoplov.vladimir.controlset.continuousset.mix;
 
 import com.bitwig.extension.controller.api.*;
-import ru.utoplov.vladimir.ControllerContext;
 import ru.utoplov.vladimir.controlset.AbstractControlSet;
+import ru.utoplov.vladimir.core.ControllerContext;
 
 
-public class ContinuousControlSet extends AbstractControlSet {
+public class MixContinuousControlSet extends AbstractControlSet {
 
-    public ContinuousControlSet(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    public MixContinuousControlSet(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         transport.getPosition().markInterested();
 
 //        cursorTrack.volume().value().markInterested();

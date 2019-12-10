@@ -1,7 +1,7 @@
 package ru.utoplov.vladimir.controlset;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
-import ru.utoplov.vladimir.ControllerContext;
+import ru.utoplov.vladimir.core.ControllerContext;
 
 public class AbstractStateControlSet extends AbstractControlSet {
 

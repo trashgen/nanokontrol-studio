@@ -5,8 +5,8 @@ import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.SendBank;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.ControllerContext;
 import ru.utoplov.vladimir.controlset.stateset.MixStateControlSet;
+import ru.utoplov.vladimir.core.ControllerContext;
 
 class WheelForwardControl extends ContinuousControl {
 

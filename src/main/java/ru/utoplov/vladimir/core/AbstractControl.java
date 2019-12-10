@@ -1,9 +1,8 @@
-package ru.utoplov.vladimir.controlset;
+package ru.utoplov.vladimir.core;
 
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.Control;
 
 abstract public class AbstractControl implements Control {
 

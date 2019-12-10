@@ -1,8 +1,8 @@
 package ru.utoplov.vladimir.controlset;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
-import ru.utoplov.vladimir.Control;
-import ru.utoplov.vladimir.ControlSet;
+import ru.utoplov.vladimir.core.Control;
+import ru.utoplov.vladimir.core.ControlSet;
 
 import java.util.HashMap;
 import java.util.Map;

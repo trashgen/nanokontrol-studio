@@ -1,8 +1,8 @@
 package ru.utoplov.vladimir.controlset.stateset;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
-import ru.utoplov.vladimir.ControllerContext;
 import ru.utoplov.vladimir.controlset.AbstractStateControlSet;
+import ru.utoplov.vladimir.core.ControllerContext;
 
 import java.util.Arrays;
 

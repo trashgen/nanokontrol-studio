@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir;
+package ru.utoplov.vladimir.core;
 
 import com.bitwig.extension.controller.api.MidiOut;
 import ru.utoplov.vladimir.controlset.stateset.MixStateControlSet;

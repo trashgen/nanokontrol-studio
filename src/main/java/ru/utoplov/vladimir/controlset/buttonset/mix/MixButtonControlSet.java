@@ -4,12 +4,12 @@ import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.Track;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.ControllerContext;
 import ru.utoplov.vladimir.controlset.AbstractControlSet;
+import ru.utoplov.vladimir.core.ControllerContext;
 
-public class SimpleControlSet extends AbstractControlSet {
+public class MixButtonControlSet extends AbstractControlSet {
 
-    public SimpleControlSet(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    public MixButtonControlSet(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         transport.isPlaying().markInterested();
         transport.getInPosition().markInterested();
         transport.isArrangerRecordEnabled().markInterested();

@@ -4,7 +4,8 @@ import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.SoloValue;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.ControllerContext;
+import ru.utoplov.vladimir.controlset.buttonset.ButtonControl;
+import ru.utoplov.vladimir.core.ControllerContext;
 
 public class SoloButtonControl extends ButtonControl {
 

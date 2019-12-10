@@ -5,7 +5,7 @@ import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.SettableRangedValue;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.ControllerContext;
+import ru.utoplov.vladimir.core.ControllerContext;
 
 class KnobControl extends ContinuousControl {
 

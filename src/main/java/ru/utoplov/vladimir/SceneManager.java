@@ -4,9 +4,12 @@ import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.MidiOut;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
-import ru.utoplov.vladimir.controlset.buttonset.mix.SimpleControlSet;
-import ru.utoplov.vladimir.controlset.continuousset.mix.ContinuousControlSet;
+import ru.utoplov.vladimir.controlset.buttonset.device.DeviceButtonControlSet;
+import ru.utoplov.vladimir.controlset.buttonset.mix.MixButtonControlSet;
+import ru.utoplov.vladimir.controlset.continuousset.mix.MixContinuousControlSet;
+import ru.utoplov.vladimir.controlset.stateset.DeviceStateControlSet;
 import ru.utoplov.vladimir.controlset.stateset.MixStateControlSet;
+import ru.utoplov.vladimir.core.ControllerContext;
 import ru.utoplov.vladimir.view.DeviceScene;
 import ru.utoplov.vladimir.view.MixScene;
 import ru.utoplov.vladimir.view.Scene;
@@ -25,12 +28,12 @@ class SceneManager {
         ControllerContext controllerContext = new ControllerContext(midiOut);
         trackBank.followCursorTrack(cursorTrack);
         scenes.put(KEY_SCENE_MIX, new MixScene()
-                .addControlSet(new SimpleControlSet(controllerContext, transport, trackBank, cursorTrack))
-                .addControlSet(new ContinuousControlSet(controllerContext, transport, trackBank, cursorTrack))
-                .addControlSet(new MixStateControlSet(controllerContext)
-                ));
+                .addControlSet(new MixButtonControlSet(controllerContext, transport, trackBank, cursorTrack))
+                .addControlSet(new MixContinuousControlSet(controllerContext, transport, trackBank, cursorTrack))
+                .addControlSet(new MixStateControlSet(controllerContext)));
         scenes.put(KEY_DEVICE_MIX, new DeviceScene()
-                .addControlSet(new SimpleControlSet(controllerContext, transport, trackBank, cursorTrack)));
+                .addControlSet(new DeviceButtonControlSet(controllerContext, transport, trackBank, cursorTrack))
+                .addControlSet(new DeviceStateControlSet(controllerContext)));
     }
 
     Scene onSceneChange(final String data) {
