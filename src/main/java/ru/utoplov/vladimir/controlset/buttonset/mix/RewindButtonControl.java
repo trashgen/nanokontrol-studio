@@ -7,9 +7,9 @@ import ru.utoplov.vladimir.controlset.buttonset.ButtonControl;
 
 public class RewindButtonControl extends ButtonControl {
 
-    final static int BUTTON_ID = 62;
+    public final static int BUTTON_ID = 62;
 
-    RewindButtonControl(Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    public RewindButtonControl(Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         super(transport, trackBank, cursorTrack);
     }
 

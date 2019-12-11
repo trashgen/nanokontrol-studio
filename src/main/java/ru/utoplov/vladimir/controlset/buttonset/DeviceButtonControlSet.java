@@ -1,14 +1,14 @@
-package ru.utoplov.vladimir.controlset.buttonset.device;
+package ru.utoplov.vladimir.controlset.buttonset;
 
 import com.bitwig.extension.controller.api.*;
 import ru.utoplov.vladimir.controlset.AbstractControlSet;
+import ru.utoplov.vladimir.controlset.buttonset.device.SetButtonControl;
 import ru.utoplov.vladimir.core.ControllerContext;
 
 public class DeviceButtonControlSet extends AbstractControlSet {
 
     private static final String NANO_KONTROL_STUDIO_DEVICE_ID = "NANO_KONTROL_STUDIO_DEVICE_ID";
     private static final String NANO_KONTROL_STUDIO_DEVICE_NAME = "NANO_KONTROL_STUDIO_DEVICE_NAME";
-
     private static final String NANO_KONTROL_STUDIO_DEVICE_CONTROL_NAME = "NANO_KONTROL_STUDIO_DEVICE_CONTROL_NAME";
 
     private PinnableCursorDevice cursorDevice;
@@ -22,14 +22,20 @@ public class DeviceButtonControlSet extends AbstractControlSet {
         controlsPageBank = cursorDevice.createCursorRemoteControlsPage(NANO_KONTROL_STUDIO_DEVICE_CONTROL_NAME, 4, "");
         for (int i = 0; i < controlsPageBank.getParameterCount(); i++) {
             RemoteControl parameter = controlsPageBank.getParameter(i);
-            parameter.setIndication(true);
-
             parameter.markInterested();
             parameter.name().markInterested();
             parameter.value().markInterested();
         }
 
         controls.put(SetButtonControl.BUTTON_ID, new SetButtonControl(controllerContext, transport, trackBank, cursorTrack, cursorDevice, controlsPageBank));
+    }
+
+    @Override
+    public void updateIndication(boolean enabled) {
+        for (int i = 0; i < controlsPageBank.getParameterCount(); i++) {
+            RemoteControl parameter = controlsPageBank.getParameter(i);
+            parameter.setIndication(enabled);
+        }
     }
 
 }

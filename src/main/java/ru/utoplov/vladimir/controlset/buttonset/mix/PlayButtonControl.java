@@ -8,7 +8,7 @@ import ru.utoplov.vladimir.core.ControllerContext;
 
 public class PlayButtonControl extends ButtonControl {
 
-    final static int BUTTON_ID = 80;
+    public final static int BUTTON_ID = 80;
 
     private ControllerContext controllerContext;
 

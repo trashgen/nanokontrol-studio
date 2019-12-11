@@ -8,11 +8,11 @@ import ru.utoplov.vladimir.core.ControllerContext;
 
 public class StopButtonControl extends ButtonControl {
 
-    final static int BUTTON_ID = 63;
+    public final static int BUTTON_ID = 63;
 
     private ControllerContext controllerContext;
 
-    StopButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    public StopButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         super(transport, trackBank, cursorTrack);
         this.controllerContext = controllerContext;
     }

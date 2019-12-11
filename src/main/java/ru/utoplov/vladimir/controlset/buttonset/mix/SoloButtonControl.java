@@ -9,13 +9,13 @@ import ru.utoplov.vladimir.core.ControllerContext;
 
 public class SoloButtonControl extends ButtonControl {
 
-    final static int BUTTON_ID_FIRST = 29;
-    final static int BUTTON_ID_LAST = 36;
+    public final static int BUTTON_ID_FIRST = 29;
+    public final static int BUTTON_ID_LAST = 36;
 
     private int index;
     private ControllerContext controllerContext;
 
-    SoloButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, int index) {
+    public SoloButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, int index) {
         super(transport, trackBank, cursorTrack);
         this.index = index;
         this.controllerContext = controllerContext;

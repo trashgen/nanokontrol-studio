@@ -13,7 +13,7 @@ public class ForwardButtonControl extends ButtonControl {
 
     private ControllerContext controllerContext;
 
-    ForwardButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    public ForwardButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         super(transport, trackBank, cursorTrack);
         this.controllerContext = controllerContext;
     }

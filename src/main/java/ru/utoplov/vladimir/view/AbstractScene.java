@@ -16,6 +16,20 @@ abstract public class AbstractScene implements Scene {
     }
 
     @Override
+    public void init() {
+        for (ControlSet controlSet : controlSets) {
+            controlSet.updateIndication(true);
+        }
+    }
+
+    @Override
+    public void cleanUp() {
+        for (ControlSet controlSet : controlSets) {
+            controlSet.updateIndication(false);
+        }
+    }
+
+    @Override
     public boolean handleMidiCommand(ShortMidiMessage msg) {
         for (ControlSet controlSet : controlSets) {
             if (controlSet.isValid(msg)) {

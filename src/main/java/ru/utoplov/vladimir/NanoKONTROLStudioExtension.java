@@ -58,7 +58,10 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
      * Called when we receive sysex MIDI message on port 0.
      */
     private void onSysex0(final String data) {
+        currentScene.cleanUp();
         currentScene = sceneManager.onSceneChange(data);
+        currentScene.init();
+
         getHost().showPopupNotification(String.format("Set mode [%s]", currentScene.getName()));
     }
 

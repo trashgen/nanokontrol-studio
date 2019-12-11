@@ -8,4 +8,7 @@ public interface ControlSet {
 
     boolean execute(ShortMidiMessage msg);
 
+    default void updateIndication(boolean enabled) {
+    }
+
 }

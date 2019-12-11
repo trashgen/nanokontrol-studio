@@ -7,7 +7,7 @@ import ru.utoplov.vladimir.core.ControlSet;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AbstractControlSet implements ControlSet {
+public abstract class AbstractControlSet implements ControlSet {
 
     protected final Map<Integer, Control> controls = new HashMap<>();
 

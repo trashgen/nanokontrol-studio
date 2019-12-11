@@ -12,7 +12,7 @@ public class SetButtonControl extends ButtonControl {
     private PinnableCursorDevice cursorDevice;
     private CursorRemoteControlsPage controlsPageBank;
 
-    SetButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, PinnableCursorDevice cursorDevice, CursorRemoteControlsPage controlsPageBank) {
+    public SetButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, PinnableCursorDevice cursorDevice, CursorRemoteControlsPage controlsPageBank) {
         super(transport, trackBank, cursorTrack);
         this.cursorDevice = cursorDevice;
         this.controlsPageBank = controlsPageBank;

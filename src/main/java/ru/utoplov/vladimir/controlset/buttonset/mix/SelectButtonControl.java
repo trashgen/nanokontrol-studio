@@ -8,13 +8,13 @@ import ru.utoplov.vladimir.core.ControllerContext;
 
 public class SelectButtonControl extends ButtonControl {
 
-    final static int BUTTON_ID_FIRST = 46;
-    final static int BUTTON_ID_LAST = 53;
+    public final static int BUTTON_ID_FIRST = 46;
+    public final static int BUTTON_ID_LAST = 53;
 
     private int index;
     private ControllerContext controllerContext;
 
-    SelectButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, int index) {
+    public SelectButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, int index) {
         super(transport, trackBank, cursorTrack);
         this.index = index;
         this.controllerContext = controllerContext;
@@ -23,6 +23,7 @@ public class SelectButtonControl extends ButtonControl {
     @Override
     protected void logic() {
         trackBank.getItemAt(index).selectInMixer();
+        trackBank.getItemAt(index).selectInEditor();
         controllerContext.ledON(BUTTON_ID_FIRST + index);
         for (int i = BUTTON_ID_FIRST; i <= BUTTON_ID_LAST; i++) {
             if ((i - BUTTON_ID_FIRST) != index) {

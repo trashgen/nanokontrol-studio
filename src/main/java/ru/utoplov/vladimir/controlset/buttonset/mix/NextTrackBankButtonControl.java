@@ -8,11 +8,11 @@ import ru.utoplov.vladimir.core.ControllerContext;
 
 public class NextTrackBankButtonControl extends ButtonControl {
 
-    final static int BUTTON_ID = 61;
+    public final static int BUTTON_ID = 61;
 
     private ControllerContext controllerContext;
 
-    NextTrackBankButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    public NextTrackBankButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         super(transport, trackBank, cursorTrack);
         this.controllerContext = controllerContext;
     }

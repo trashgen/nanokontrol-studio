@@ -5,22 +5,23 @@ import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.SendBank;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
+import ru.utoplov.vladimir.controlset.continuousset.ContinuousControl;
 import ru.utoplov.vladimir.controlset.stateset.MixStateControlSet;
 import ru.utoplov.vladimir.core.ControllerContext;
 
-class WheelForwardControl extends ContinuousControl {
+public class WheelForwardControl extends ContinuousControl {
 
-    final static int BUTTON_ID = 83;
+    public final static int BUTTON_ID = 83;
 
     private ControllerContext controllerContext;
 
-    WheelForwardControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    public WheelForwardControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         super(transport, trackBank, cursorTrack);
         this.controllerContext = controllerContext;
     }
 
     @Override
-    void logic(ShortMidiMessage msg) {
+    protected void logic(ShortMidiMessage msg) {
         int trackRecordPressedIndex = controllerContext.getTrackRecordPressed();
         if (trackRecordPressedIndex == MixStateControlSet.BUTTON_TRACK_RECORD_STATE_NOT_PRESSED) {
             if (controllerContext.isCycleToggleStateActive()) {

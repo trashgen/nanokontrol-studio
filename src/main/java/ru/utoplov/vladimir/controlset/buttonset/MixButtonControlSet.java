@@ -1,10 +1,11 @@
-package ru.utoplov.vladimir.controlset.buttonset.mix;
+package ru.utoplov.vladimir.controlset.buttonset;
 
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.Track;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.controlset.AbstractControlSet;
+import ru.utoplov.vladimir.controlset.buttonset.mix.*;
 import ru.utoplov.vladimir.core.ControllerContext;
 
 public class MixButtonControlSet extends AbstractControlSet {

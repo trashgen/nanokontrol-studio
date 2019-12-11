@@ -3,7 +3,7 @@ package ru.utoplov.vladimir.controlset;
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import ru.utoplov.vladimir.core.ControllerContext;
 
-public class AbstractStateControlSet extends AbstractControlSet {
+public abstract class AbstractStateControlSet extends AbstractControlSet {
 
     public static final int BUTTON_TRACK_RECORD_STATE_1 = 38;
     public static final int BUTTON_TRACK_RECORD_STATE_2 = 39;

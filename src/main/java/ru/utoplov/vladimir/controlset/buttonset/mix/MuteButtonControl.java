@@ -9,13 +9,13 @@ import ru.utoplov.vladimir.core.ControllerContext;
 
 public class MuteButtonControl extends ButtonControl {
 
-    final static int BUTTON_ID_FIRST = 21;
-    final static int BUTTON_ID_LAST = 28;
+    public final static int BUTTON_ID_FIRST = 21;
+    public final static int BUTTON_ID_LAST = 28;
 
     private int index;
     private ControllerContext controllerContext;
 
-    MuteButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, int index) {
+    public MuteButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, int index) {
         super(transport, trackBank, cursorTrack);
         this.index = index;
         this.controllerContext = controllerContext;

@@ -13,7 +13,7 @@ public class BackwardButtonControl extends ButtonControl {
 
     private ControllerContext controllerContext;
 
-    BackwardButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
+    public BackwardButtonControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
         super(transport, trackBank, cursorTrack);
         this.controllerContext = controllerContext;
     }
