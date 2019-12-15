@@ -21,6 +21,10 @@ public class MixButtonControlSet extends AbstractControlSet {
             track.solo().markInterested();
         }
 
+//        for (int i = 0; i < cursorTrack.sendBank().getSizeOfBank(); i++) {
+//            cursorTrack.sendBank().getItemAt(i).sendMode().markInterested();
+//        }
+
         controls.put(BackwardButtonControl.BUTTON_ID, new BackwardButtonControl(controllerContext, transport, trackBank, cursorTrack));
         controls.put(ForwardButtonControl.BUTTON_ID, new ForwardButtonControl(controllerContext, transport, trackBank, cursorTrack));
 
