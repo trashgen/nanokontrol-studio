@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir.controlset.buttonset.mix;
+package ru.utoplov.vladimir.controlset.buttonset.device;
 
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.SoloValue;

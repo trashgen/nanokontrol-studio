@@ -6,19 +6,19 @@ import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.controlset.buttonset.ButtonControl;
 
-public class SetButtonControl extends ButtonControl {
+public class CycleStateButtonControl extends ButtonControl {
 
-    public final static int BUTTON_ID = 55;
+    public final static int BUTTON_ID = 54;
 
     private PinnableCursorDevice cursorDevice;
 
-    public SetButtonControl(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, PinnableCursorDevice cursorDevice) {
+    public CycleStateButtonControl(Transport transport, TrackBank trackBank, CursorTrack cursorTrack, PinnableCursorDevice cursorDevice) {
         super(transport, trackBank, cursorTrack);
         this.cursorDevice = cursorDevice;
     }
 
     @Override
     protected void logic() {
-        // TODO : Set 'this' SElected device RemoteControls to KnF
+        cursorDevice.isWindowOpen().toggle();
     }
 }

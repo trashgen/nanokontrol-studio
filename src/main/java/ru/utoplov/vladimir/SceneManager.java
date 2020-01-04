@@ -6,6 +6,7 @@ import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.controlset.buttonset.DeviceButtonControlSet;
 import ru.utoplov.vladimir.controlset.buttonset.MixButtonControlSet;
+import ru.utoplov.vladimir.controlset.continuousset.DeviceContinuousControlSet;
 import ru.utoplov.vladimir.controlset.continuousset.MixContinuousControlSet;
 import ru.utoplov.vladimir.controlset.stateset.DeviceStateControlSet;
 import ru.utoplov.vladimir.controlset.stateset.MixStateControlSet;
@@ -33,6 +34,7 @@ class SceneManager {
                 .addControlSet(new MixStateControlSet(controllerContext)));
         scenes.put(KEY_DEVICE_MIX, new DeviceScene()
                 .addControlSet(new DeviceButtonControlSet(controllerContext, transport, trackBank, cursorTrack))
+                .addControlSet(new DeviceContinuousControlSet(controllerContext, transport, trackBank, cursorTrack))
                 .addControlSet(new DeviceStateControlSet(controllerContext)));
     }
 
