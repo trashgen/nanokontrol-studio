@@ -19,6 +19,9 @@ public class PlayButtonControl extends ButtonControl {
 
     @Override
     protected void logic() {
+        if (controllerContext.isSetPressed()) {
+            controllerContext.ArrangementPosition = transport.getPosition().get();
+        }
         transport.setPosition(controllerContext.ArrangementPosition);
         transport.play();
         controllerContext.toggleLED(BUTTON_ID, transport.isPlaying().get());

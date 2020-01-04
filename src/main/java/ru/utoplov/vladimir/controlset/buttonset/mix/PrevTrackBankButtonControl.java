@@ -20,9 +20,9 @@ public class PrevTrackBankButtonControl extends ButtonControl {
     @Override
     protected void logic() {
         if (controllerContext.isSetPressed()) {
-            trackBank.scrollBackwards();
-        } else {
             trackBank.scrollPageBackwards();
+        } else {
+            trackBank.scrollBackwards();
         }
     }
 }
