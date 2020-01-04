@@ -8,8 +8,8 @@ import ru.utoplov.vladimir.view.Scene;
 
 public class NanoKONTROLStudioExtension extends ControllerExtension {
 
-    private static final String NANO_KONTROL_STUDIO_ID = "NANO_KONTROL_STUDIO_ID";
-    private static final String NANO_KONTROL_STUDIO_NAME = "NANO_KONTROL_STUDIO_NAME";
+    private static final String NANO_KONTROL_STUDIO_CURSOR_ID = "NANO_KONTROL_STUDIO_CURSOR_ID";
+    private static final String NANO_KONTROL_STUDIO_CURSOR_NAME = "NANO_KONTROL_STUDIO_CURSOR_NAME";
 
     private Scene currentScene;
     private SceneManager sceneManager;
@@ -27,19 +27,17 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
                 getHost().getMidiOutPort(0),
                 getHost().createTransport(),
                 getHost().createTrackBank(8, 0, 0, true),
-                getHost().createCursorTrack(NANO_KONTROL_STUDIO_ID, NANO_KONTROL_STUDIO_NAME, 8, 0, true));
-        currentScene = sceneManager.getFirstScene();
+                getHost().createCursorTrack(NANO_KONTROL_STUDIO_CURSOR_ID, NANO_KONTROL_STUDIO_CURSOR_NAME, 8, 0, true));
+        currentScene = sceneManager.getMixScene();
 
-        getHost().showPopupNotification("trashgen NanoKONTROL Studio Initialized");
-        getHost().println("trashgen NanoKONTROL Studio Initialized");
+        getHost().showPopupNotification("NanoKONTROL Studio Initialized");
+        getHost().println("NanoKONTROL Studio Initialized");
     }
 
     /**
      * Called when we receive short MIDI message on port 0.
      */
     private void onMidi0(ShortMidiMessage msg) {
-        // TODO : Check if I have SHIFT. (Yes I can, but not the 'Cycles' Button. Maybe 'Set' or '<<'
-//        getHost().showPopupNotification(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
         getHost().println(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
         if (!currentScene.handleMidiCommand(msg)) {
             getHost().errorln(String.format("Message [%d] not supported", msg.getData1()));
@@ -60,7 +58,10 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
      * Called when we receive sysex MIDI message on port 0.
      */
     private void onSysex0(final String data) {
+        currentScene.cleanUp();
         currentScene = sceneManager.onSceneChange(data);
+        currentScene.init();
+
         getHost().showPopupNotification(String.format("Set mode [%s]", currentScene.getName()));
     }
 
