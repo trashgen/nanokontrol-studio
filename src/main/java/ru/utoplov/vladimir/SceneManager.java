@@ -18,39 +18,51 @@ import ru.utoplov.vladimir.view.Scene;
 import java.util.HashMap;
 import java.util.Map;
 
-import static ru.utoplov.vladimir.NanoKONTROLStudioExtensionDefinition.KEY_DEVICE_MIX;
-import static ru.utoplov.vladimir.NanoKONTROLStudioExtensionDefinition.KEY_SCENE_MIX;
+import static ru.utoplov.vladimir.NanoKONTROLStudioExtensionDefinition.*;
 
 class SceneManager {
 
-    private ControllerContext controllerContext;
+    private Scene currentScene;
+    private ControllerContext cc;
     private final Map<String, Scene> scenes = new HashMap<>();
 
     SceneManager(MidiOut midiOut, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
-        controllerContext = new ControllerContext(midiOut, transport, trackBank, cursorTrack);
+        cc = new ControllerContext(midiOut, transport, trackBank, cursorTrack);
         trackBank.followCursorTrack(cursorTrack);
         cursorTrack.isPinned().markInterested();
-        scenes.put(KEY_SCENE_MIX, new MixScene()
-                .addControlSet(new MixButtonControlSet(controllerContext))
-                .addControlSet(new MixContinuousControlSet(controllerContext))
-                .addControlSet(new MixStateControlSet(controllerContext)));
-        scenes.put(KEY_DEVICE_MIX, new DeviceScene()
-                .addControlSet(new DeviceButtonControlSet(controllerContext))
-                .addControlSet(new DeviceContinuousControlSet(controllerContext))
-                .addControlSet(new DeviceStateControlSet(controllerContext)));
+        scenes.put(KEY_SCENE_MIX_FIRST, new MixScene()
+                .addControlSet(new MixButtonControlSet(cc))
+                .addControlSet(new MixContinuousControlSet(cc))
+                .addControlSet(new MixStateControlSet(cc)));
+        scenes.put(KEY_DEVICE_FIRST, new DeviceScene(cc)
+                .addControlSet(new DeviceButtonControlSet(cc))
+                .addControlSet(new DeviceContinuousControlSet(cc))
+                .addControlSet(new DeviceStateControlSet(cc)));
+        scenes.put(KEY_SCENE_MIX_SECOND, new MixScene()
+                .addControlSet(new MixButtonControlSet(cc))
+                .addControlSet(new MixContinuousControlSet(cc))
+                .addControlSet(new MixStateControlSet(cc)));
+        scenes.put(KEY_DEVICE_SECOND, new DeviceScene(cc)
+                .addControlSet(new DeviceButtonControlSet(cc))
+                .addControlSet(new DeviceContinuousControlSet(cc))
+                .addControlSet(new DeviceStateControlSet(cc)));
+        scenes.put(KEY_SCENE_MIX_THIRD, new MixScene()
+                .addControlSet(new MixButtonControlSet(cc))
+                .addControlSet(new MixContinuousControlSet(cc))
+                .addControlSet(new MixStateControlSet(cc)));
+        currentScene = scenes.get(KEY_SCENE_MIX_FIRST);
     }
 
-    Scene onSceneChange(final String data) {
-        Scene scene = scenes.get(data);
-        if (scene == null) {
-            scene = scenes.get(KEY_SCENE_MIX);
-        }
-        controllerContext.resetState();
-        return scene;
+    void onSceneChange(final String data) {
+        cc.resetState();
+
+        currentScene.cleanUp();
+        currentScene = scenes.get(data);
+        currentScene.init();
     }
 
-    Scene getMixScene() {
-        return scenes.get(KEY_SCENE_MIX);
+    Scene getCurrentScene() {
+        return currentScene;
     }
 
 }

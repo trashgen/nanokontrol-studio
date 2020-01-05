@@ -4,14 +4,12 @@ import com.bitwig.extension.api.util.midi.ShortMidiMessage;
 import com.bitwig.extension.callback.ShortMidiMessageReceivedCallback;
 import com.bitwig.extension.controller.ControllerExtension;
 import com.bitwig.extension.controller.api.ControllerHost;
-import ru.utoplov.vladimir.view.Scene;
 
 public class NanoKONTROLStudioExtension extends ControllerExtension {
 
     private static final String NANO_KONTROL_STUDIO_CURSOR_ID = "NANO_KONTROL_STUDIO_CURSOR_ID";
     private static final String NANO_KONTROL_STUDIO_CURSOR_NAME = "NANO_KONTROL_STUDIO_CURSOR_NAME";
 
-    private Scene currentScene;
     private SceneManager sceneManager;
 
     NanoKONTROLStudioExtension(final NanoKONTROLStudioExtensionDefinition definition, final ControllerHost host) {
@@ -28,7 +26,6 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
                 getHost().createTransport(),
                 getHost().createTrackBank(8, 0, 0, true),
                 getHost().createCursorTrack(NANO_KONTROL_STUDIO_CURSOR_ID, NANO_KONTROL_STUDIO_CURSOR_NAME, 8, 0, true));
-        currentScene = sceneManager.getMixScene();
 
         getHost().showPopupNotification("NanoKONTROL Studio Initialized");
         getHost().println("NanoKONTROL Studio Initialized");
@@ -39,7 +36,7 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
      */
     private void onMidi0(ShortMidiMessage msg) {
         getHost().println(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
-        if (!currentScene.handleMidiCommand(msg)) {
+        if (!sceneManager.getCurrentScene().handleMidiCommand(msg)) {
             getHost().errorln(String.format("Message [%d] not supported", msg.getData1()));
         }
     }
@@ -58,11 +55,8 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
      * Called when we receive sysex MIDI message on port 0.
      */
     private void onSysex0(final String data) {
-        currentScene.cleanUp();
-        currentScene = sceneManager.onSceneChange(data);
-        currentScene.init();
-
-        getHost().showPopupNotification(String.format("Set mode [%s]", currentScene.getName()));
+        sceneManager.onSceneChange(data);
+        getHost().showPopupNotification(String.format("Set mode [%s]", sceneManager.getCurrentScene().getName()));
     }
 
 }
