@@ -1,52 +1,43 @@
 package ru.utoplov.vladimir.controlset.buttonset;
 
-import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.Track;
-import com.bitwig.extension.controller.api.TrackBank;
-import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.controlset.AbstractControlSet;
 import ru.utoplov.vladimir.controlset.buttonset.mix.*;
 import ru.utoplov.vladimir.core.ControllerContext;
 
 public class MixButtonControlSet extends AbstractControlSet {
 
-    public MixButtonControlSet(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
-        transport.isPlaying().markInterested();
-        transport.getInPosition().markInterested();
-        transport.isArrangerRecordEnabled().markInterested();
+    public MixButtonControlSet(ControllerContext cc) {
+        super(cc);
 
-        for (int i = 0; i < trackBank.getSizeOfBank(); i++) {
-            Track track = trackBank.getItemAt(i);
+        for (int i = 0; i < cc.trackBank.getSizeOfBank(); i++) {
+            Track track = cc.trackBank.getItemAt(i);
             track.mute().markInterested();
             track.solo().markInterested();
         }
 
-//        for (int i = 0; i < cursorTrack.sendBank().getSizeOfBank(); i++) {
-//            cursorTrack.sendBank().getItemAt(i).sendMode().markInterested();
-//        }
+        controls.put(BackwardButtonControl.BUTTON_ID, new BackwardButtonControl(cc));
+        controls.put(ForwardButtonControl.BUTTON_ID, new ForwardButtonControl(cc));
 
-        controls.put(BackwardButtonControl.BUTTON_ID, new BackwardButtonControl(controllerContext, transport, trackBank, cursorTrack));
-        controls.put(ForwardButtonControl.BUTTON_ID, new ForwardButtonControl(controllerContext, transport, trackBank, cursorTrack));
+        controls.put(RewindButtonControl.BUTTON_ID, new RewindButtonControl(cc));
+        controls.put(StopButtonControl.BUTTON_ID, new StopButtonControl(cc));
+        controls.put(PlayButtonControl.BUTTON_ID, new PlayButtonControl(cc));
+        controls.put(RecordButtonControl.BUTTON_ID, new RecordButtonControl(cc));
 
-        controls.put(RewindButtonControl.BUTTON_ID, new RewindButtonControl(transport, trackBank, cursorTrack));
-        controls.put(StopButtonControl.BUTTON_ID, new StopButtonControl(controllerContext, transport, trackBank, cursorTrack));
-        controls.put(PlayButtonControl.BUTTON_ID, new PlayButtonControl(controllerContext, transport, trackBank, cursorTrack));
-        controls.put(RecordButtonControl.BUTTON_ID, new RecordButtonControl(controllerContext, transport, trackBank, cursorTrack));
+        controls.put(PrevSendBankButtonControl.BUTTON_ID, new PrevSendBankButtonControl(cc));
+        controls.put(NextSendBankButtonControl.BUTTON_ID, new NextSendBankButtonControl(cc));
 
-        controls.put(PrevSendBankButtonControl.BUTTON_ID, new PrevSendBankButtonControl(controllerContext, transport, trackBank, cursorTrack));
-        controls.put(NextSendBankButtonControl.BUTTON_ID, new NextSendBankButtonControl(controllerContext, transport, trackBank, cursorTrack));
-
-        controls.put(PrevTrackBankButtonControl.BUTTON_ID, new PrevTrackBankButtonControl(controllerContext, transport, trackBank, cursorTrack));
-        controls.put(NextTrackBankButtonControl.BUTTON_ID, new NextTrackBankButtonControl(controllerContext, transport, trackBank, cursorTrack));
+        controls.put(PrevTrackBankButtonControl.BUTTON_ID, new PrevTrackBankButtonControl(cc));
+        controls.put(NextTrackBankButtonControl.BUTTON_ID, new NextTrackBankButtonControl(cc));
 
         for (int i = MuteButtonControl.BUTTON_ID_FIRST; i <= MuteButtonControl.BUTTON_ID_LAST; i++) {
-            controls.put(i, new MuteButtonControl(controllerContext, transport, trackBank, cursorTrack, i - MuteButtonControl.BUTTON_ID_FIRST));
+            controls.put(i, new MuteButtonControl(cc, i - MuteButtonControl.BUTTON_ID_FIRST));
         }
         for (int i = SoloButtonControl.BUTTON_ID_FIRST; i <= SoloButtonControl.BUTTON_ID_LAST; i++) {
-            controls.put(i, new SoloButtonControl(controllerContext, transport, trackBank, cursorTrack, i - SoloButtonControl.BUTTON_ID_FIRST));
+            controls.put(i, new SoloButtonControl(cc, i - SoloButtonControl.BUTTON_ID_FIRST));
         }
         for (int i = SelectButtonControl.BUTTON_ID_FIRST; i <= SelectButtonControl.BUTTON_ID_LAST; i++) {
-            controls.put(i, new SelectButtonControl(controllerContext, transport, trackBank, cursorTrack, i - SelectButtonControl.BUTTON_ID_FIRST));
+            controls.put(i, new SelectButtonControl(cc, i - SelectButtonControl.BUTTON_ID_FIRST));
         }
     }
 

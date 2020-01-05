@@ -23,11 +23,11 @@ public class DeviceButtonControlSet extends AbstractControlSet {
         cursorDevice.isEnabled().markInterested();
         cursorDevice.isWindowOpen().markInterested();
 
-        controls.put(CycleStateButtonControl.BUTTON_ID, new CycleStateButtonControl(transport, trackBank, cursorTrack, cursorDevice));
+//        controls.put(CycleStateButtonControl.BUTTON_ID, new CycleStateButtonControl(transport, trackBank, cursorTrack, cursorDevice));
         controls.put(SetButtonControl.BUTTON_ID, new SetButtonControl(transport, trackBank, cursorTrack, cursorDevice));
         controls.put(NextDeviceButtonControl.BUTTON_ID, new NextDeviceButtonControl(transport, trackBank, cursorTrack, cursorDevice));
         controls.put(PrevDeviceButtonControl.BUTTON_ID, new PrevDeviceButtonControl(transport, trackBank, cursorTrack, cursorDevice));
-//        controls.put(RewindDeviceButtonControl.BUTTON_ID, new RewindDeviceButtonControl(controllerContext, transport, trackBank, cursorTrack, cursorDevice));
+        controls.put(RewindDeviceButtonControl.BUTTON_ID, new RewindDeviceButtonControl(controllerContext, transport, trackBank, cursorTrack, cursorDevice));
 
         for (int i = MuteButtonControl.BUTTON_ID_FIRST; i <= MuteButtonControl.BUTTON_ID_LAST; i++) {
             controls.put(i, new MuteButtonControl(controllerContext, transport, trackBank, cursorTrack, i - MuteButtonControl.BUTTON_ID_FIRST));

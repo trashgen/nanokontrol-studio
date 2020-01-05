@@ -23,7 +23,9 @@ public class FaderControl extends ContinuousControl {
 
     @Override
     protected void logic(ShortMidiMessage msg) {
-        RemoteControl parameter = controls.getParameter(index);
-        parameter.set(msg.getData2(), 128);
+        if (controllerContext.isCycleToggleStateActive()) {
+            RemoteControl parameter = controls.getParameter(index);
+            parameter.set(msg.getData2(), 128);
+        }
     }
 }

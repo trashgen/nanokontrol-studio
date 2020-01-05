@@ -1,7 +1,7 @@
 package ru.utoplov.vladimir.controlset.continuousset.device;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
-import com.bitwig.extension.controller.api.*;
+import com.bitwig.extension.controller.api.RemoteControl;
 import ru.utoplov.vladimir.controlset.continuousset.ContinuousControl;
 import ru.utoplov.vladimir.core.ControllerContext;
 
@@ -11,19 +11,17 @@ public class KnobControl extends ContinuousControl {
     public final static int BUTTON_ID_LAST = 20;
 
     private int index;
-    private CursorRemoteControlsPage controls;
-    private ControllerContext controllerContext;
 
-    public KnobControl(ControllerContext controllerContext, CursorRemoteControlsPage controls, Transport transport, TrackBank trackBank, CursorTrack cursorTrack, int index) {
-        super(transport, trackBank, cursorTrack);
+    public KnobControl(ControllerContext cc, int index) {
+        super(cc);
         this.index = index;
-        this.controls = controls;
-        this.controllerContext = controllerContext;
     }
 
     @Override
     protected void logic(ShortMidiMessage msg) {
-        RemoteControl parameter = controls.getParameter(index);
-        parameter.set(msg.getData2(), 128);
+        if (cc.isCycleToggleStateActive()) {
+            RemoteControl parameter = cc.controlsOne.getParameter(index);
+            parameter.set(msg.getData2(), 128);
+        }
     }
 }

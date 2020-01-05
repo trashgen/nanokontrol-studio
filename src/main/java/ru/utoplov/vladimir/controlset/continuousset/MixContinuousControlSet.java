@@ -19,8 +19,6 @@ public class MixContinuousControlSet extends AbstractControlSet {
         this.cursorTrack = cursorTrack;
         transport.getPosition().markInterested();
 
-//        cursorTrack.volume().value().markInterested();
-
         for (int i = 0; i < cursorTrack.sendBank().getSizeOfBank(); i++) {
             Send send = cursorTrack.sendBank().getItemAt(i);
             send.markInterested();

@@ -1,9 +1,6 @@
 package ru.utoplov.vladimir.controlset.continuousset.device;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
-import com.bitwig.extension.controller.api.CursorTrack;
-import com.bitwig.extension.controller.api.TrackBank;
-import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.controlset.continuousset.ContinuousControl;
 import ru.utoplov.vladimir.core.ControllerContext;
 
@@ -11,21 +8,18 @@ public class WheelForwardControl extends ContinuousControl {
 
     public final static int BUTTON_ID = 83;
 
-    private ControllerContext controllerContext;
-
-    public WheelForwardControl(ControllerContext controllerContext, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
-        super(transport, trackBank, cursorTrack);
-        this.controllerContext = controllerContext;
+    public WheelForwardControl(ControllerContext cc) {
+        super(cc);
     }
 
     @Override
     protected void logic(ShortMidiMessage msg) {
-        if (controllerContext.isSetPressed()) {
-            controllerContext.ArrangementPosition += 4;
-            transport.setPosition(controllerContext.ArrangementPosition);
+        if (cc.isSetPressed()) {
+            cc.ArrangementPosition += 4;
+            cc.transport.setPosition(cc.ArrangementPosition);
         } else {
-            controllerContext.ArrangementPosition++;
-            transport.setPosition(controllerContext.ArrangementPosition);
+            cc.ArrangementPosition++;
+            cc.transport.setPosition(cc.ArrangementPosition);
         }
     }
 }

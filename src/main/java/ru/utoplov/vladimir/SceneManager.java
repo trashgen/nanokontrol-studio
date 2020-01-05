@@ -23,18 +23,20 @@ import static ru.utoplov.vladimir.NanoKONTROLStudioExtensionDefinition.KEY_SCENE
 
 class SceneManager {
 
+    private ControllerContext controllerContext;
     private final Map<String, Scene> scenes = new HashMap<>();
 
     SceneManager(MidiOut midiOut, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
-        ControllerContext controllerContext = new ControllerContext(midiOut);
+        controllerContext = new ControllerContext(midiOut, transport, trackBank, cursorTrack);
         trackBank.followCursorTrack(cursorTrack);
+        cursorTrack.isPinned().markInterested();
         scenes.put(KEY_SCENE_MIX, new MixScene()
-                .addControlSet(new MixButtonControlSet(controllerContext, transport, trackBank, cursorTrack))
-                .addControlSet(new MixContinuousControlSet(controllerContext, transport, trackBank, cursorTrack))
+                .addControlSet(new MixButtonControlSet(controllerContext))
+                .addControlSet(new MixContinuousControlSet(controllerContext))
                 .addControlSet(new MixStateControlSet(controllerContext)));
         scenes.put(KEY_DEVICE_MIX, new DeviceScene()
-                .addControlSet(new DeviceButtonControlSet(controllerContext, transport, trackBank, cursorTrack))
-                .addControlSet(new DeviceContinuousControlSet(controllerContext, transport, trackBank, cursorTrack))
+                .addControlSet(new DeviceButtonControlSet(controllerContext))
+                .addControlSet(new DeviceContinuousControlSet(controllerContext))
                 .addControlSet(new DeviceStateControlSet(controllerContext)));
     }
 
@@ -43,6 +45,7 @@ class SceneManager {
         if (scene == null) {
             scene = scenes.get(KEY_SCENE_MIX);
         }
+        controllerContext.resetState();
         return scene;
     }
 
