@@ -3,11 +3,11 @@ package ru.utoplov.vladimir.controlset.buttonset.mix;
 import ru.utoplov.vladimir.controlset.buttonset.ButtonControl;
 import ru.utoplov.vladimir.core.ControllerContext;
 
-public class PrevSendBankButtonControl extends ButtonControl {
+public class PrevMarkerButtonControl extends ButtonControl {
 
     public final static int BUTTON_ID = 56;
 
-    public PrevSendBankButtonControl(ControllerContext cc) {
+    public PrevMarkerButtonControl(ControllerContext cc) {
         super(cc);
     }
 

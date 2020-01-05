@@ -1,7 +1,9 @@
 package ru.utoplov.vladimir.controlset.buttonset;
 
 import ru.utoplov.vladimir.controlset.AbstractControlSet;
-import ru.utoplov.vladimir.controlset.buttonset.device.*;
+import ru.utoplov.vladimir.controlset.buttonset.common.*;
+import ru.utoplov.vladimir.controlset.buttonset.device.RewindDeviceButtonControl;
+import ru.utoplov.vladimir.controlset.buttonset.device.SetButtonControl;
 import ru.utoplov.vladimir.core.ControllerContext;
 
 public class DeviceButtonControlSet extends AbstractControlSet {
@@ -11,6 +13,9 @@ public class DeviceButtonControlSet extends AbstractControlSet {
 
         controls.put(SetButtonControl.BUTTON_ID, new SetButtonControl(cc));
         controls.put(RewindDeviceButtonControl.BUTTON_ID, new RewindDeviceButtonControl(cc));
+        controls.put(StopButtonControl.BUTTON_ID, new StopButtonControl(cc));
+        controls.put(PlayButtonControl.BUTTON_ID, new PlayButtonControl(cc));
+        controls.put(RecordButtonControl.BUTTON_ID, new RecordButtonControl(cc));
 
         for (int i = MuteButtonControl.BUTTON_ID_FIRST; i <= MuteButtonControl.BUTTON_ID_LAST; i++) {
             controls.put(i, new MuteButtonControl(cc, i - MuteButtonControl.BUTTON_ID_FIRST));

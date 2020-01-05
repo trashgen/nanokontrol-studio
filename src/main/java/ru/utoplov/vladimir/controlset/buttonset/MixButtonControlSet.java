@@ -2,6 +2,7 @@ package ru.utoplov.vladimir.controlset.buttonset;
 
 import com.bitwig.extension.controller.api.Track;
 import ru.utoplov.vladimir.controlset.AbstractControlSet;
+import ru.utoplov.vladimir.controlset.buttonset.common.*;
 import ru.utoplov.vladimir.controlset.buttonset.mix.*;
 import ru.utoplov.vladimir.core.ControllerContext;
 
@@ -24,11 +25,11 @@ public class MixButtonControlSet extends AbstractControlSet {
         controls.put(PlayButtonControl.BUTTON_ID, new PlayButtonControl(cc));
         controls.put(RecordButtonControl.BUTTON_ID, new RecordButtonControl(cc));
 
-        controls.put(PrevSendBankButtonControl.BUTTON_ID, new PrevSendBankButtonControl(cc));
-        controls.put(NextSendBankButtonControl.BUTTON_ID, new NextSendBankButtonControl(cc));
+        controls.put(PrevMarkerButtonControl.BUTTON_ID, new PrevMarkerButtonControl(cc));
+        controls.put(NextMarkerButtonControl.BUTTON_ID, new NextMarkerButtonControl(cc));
 
-        controls.put(PrevTrackBankButtonControl.BUTTON_ID, new PrevTrackBankButtonControl(cc));
-        controls.put(NextTrackBankButtonControl.BUTTON_ID, new NextTrackBankButtonControl(cc));
+        controls.put(PrevTrackButtonControl.BUTTON_ID, new PrevTrackButtonControl(cc));
+        controls.put(NextTrackButtonControl.BUTTON_ID, new NextTrackButtonControl(cc));
 
         for (int i = MuteButtonControl.BUTTON_ID_FIRST; i <= MuteButtonControl.BUTTON_ID_LAST; i++) {
             controls.put(i, new MuteButtonControl(cc, i - MuteButtonControl.BUTTON_ID_FIRST));

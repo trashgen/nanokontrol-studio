@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir.controlset.buttonset.mix;
+package ru.utoplov.vladimir.controlset.buttonset.common;
 
 import ru.utoplov.vladimir.controlset.buttonset.ButtonControl;
 import ru.utoplov.vladimir.core.ControllerContext;

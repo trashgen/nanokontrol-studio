@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir.controlset.buttonset.device;
+package ru.utoplov.vladimir.controlset.buttonset.common;
 
 import com.bitwig.extension.controller.api.SettableEnumValue;
 import ru.utoplov.vladimir.controlset.buttonset.ButtonControl;

@@ -1,4 +1,4 @@
-package ru.utoplov.vladimir.controlset.buttonset.mix;
+package ru.utoplov.vladimir.controlset.buttonset.common;
 
 import com.bitwig.extension.controller.api.SettableBooleanValue;
 import ru.utoplov.vladimir.controlset.buttonset.ButtonControl;
