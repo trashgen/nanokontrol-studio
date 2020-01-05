@@ -1,15 +1,13 @@
 package ru.utoplov.vladimir.controlset.buttonset;
 
 import com.bitwig.extension.api.util.midi.ShortMidiMessage;
-import com.bitwig.extension.controller.api.CursorTrack;
-import com.bitwig.extension.controller.api.TrackBank;
-import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.core.AbstractControl;
+import ru.utoplov.vladimir.core.ControllerContext;
 
 abstract public class ButtonControl extends AbstractControl {
 
-    public ButtonControl(Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
-        super(transport, trackBank, cursorTrack);
+    public ButtonControl(ControllerContext cc) {
+        super(cc);
     }
 
     @Override

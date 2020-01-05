@@ -1,21 +1,19 @@
 package ru.utoplov.vladimir.controlset.buttonset.mix;
 
-import com.bitwig.extension.controller.api.CursorTrack;
-import com.bitwig.extension.controller.api.TrackBank;
-import com.bitwig.extension.controller.api.Transport;
 import ru.utoplov.vladimir.controlset.buttonset.ButtonControl;
+import ru.utoplov.vladimir.core.ControllerContext;
 
 public class RewindButtonControl extends ButtonControl {
 
     public final static int BUTTON_ID = 62;
 
-    public RewindButtonControl(Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
-        super(transport, trackBank, cursorTrack);
+    public RewindButtonControl(ControllerContext cc) {
+        super(cc);
     }
 
     @Override
     protected void logic() {
-        transport.rewind();
+        cc.transport.rewind();
     }
 
 }

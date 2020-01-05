@@ -17,22 +17,20 @@ public abstract class AbstractStateControlSet extends AbstractControlSet {
     public static final int BUTTON_CYCLE_STATE = 54;
     public static final int BUTTON_SET_STATE = 55;
 
-    protected final ControllerContext controllerContext;
-
-    public AbstractStateControlSet(ControllerContext controllerContext) {
-        this.controllerContext = controllerContext;
+    public AbstractStateControlSet(ControllerContext cc) {
+        super(cc);
     }
 
     @Override
     public boolean execute(ShortMidiMessage msg) {
         switch (msg.getData2()) {
             case 0:
-                controllerContext.updateStateControl(msg.getData1(), false);
-                controllerContext.ledOFF(msg.getData1());
+                cc.updateStateControl(msg.getData1(), false);
+                cc.ledOFF(msg.getData1());
                 return true;
             case 127:
-                controllerContext.updateStateControl(msg.getData1(), true);
-                controllerContext.ledON(msg.getData1());
+                cc.updateStateControl(msg.getData1(), true);
+                cc.ledON(msg.getData1());
                 return true;
         }
         return false;

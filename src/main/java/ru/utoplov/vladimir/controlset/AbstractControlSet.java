@@ -10,11 +10,11 @@ import java.util.Map;
 
 public abstract class AbstractControlSet implements ControlSet {
 
-    protected ControllerContext controllerContext;
+    protected ControllerContext cc;
     protected final Map<Integer, Control> controls = new HashMap<>();
 
-    public AbstractControlSet(ControllerContext controllerContext) {
-        this.controllerContext = controllerContext;
+    public AbstractControlSet(ControllerContext cc) {
+        this.cc = cc;
     }
 
     @Override

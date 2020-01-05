@@ -137,9 +137,24 @@ public class ControllerContext {
 
     private void init() {
         resetState();
+
         transport.isPlaying().markInterested();
         transport.getPosition().markInterested();
         transport.getInPosition().markInterested();
         transport.isArrangerRecordEnabled().markInterested();
+
+        for (int i = 0; i < trackBank.getSizeOfBank(); i++) {
+            Parameter parameter = trackBank.getItemAt(i).volume();
+            parameter.markInterested();
+            parameter.setIndication(true);
+        }
+
+        for (int i = 0; i < cursorTrack.sendBank().getSizeOfBank(); i++) {
+            Send send = cursorTrack.sendBank().getItemAt(i);
+            send.markInterested();
+            send.setIndication(true);
+            send.value().markInterested();
+        }
+
     }
 }
