@@ -14,6 +14,7 @@ public class SetButtonControl extends ButtonControl {
     @Override
     protected void logic() {
         // TODO : Set 'this' SElected device RemoteControls to KnF
-        cc.cursorTrack.isPinned().toggle();
+//        cc.cursorTrack.isPinned().set(true);
+        cc.setRemoteControls();
     }
 }

@@ -20,7 +20,7 @@ public class KnobControl extends ContinuousControl {
     @Override
     protected void logic(ShortMidiMessage msg) {
         if (cc.isCycleToggleStateActive()) {
-            RemoteControl parameter = cc.controlsOne.getParameter(index);
+            RemoteControl parameter = cc.remote.First.getParameter(index);
             parameter.set(msg.getData2(), 128);
         }
     }

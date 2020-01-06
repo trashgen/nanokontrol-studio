@@ -14,7 +14,7 @@ public class DeviceStateControlSet extends AbstractStateControlSet {
 
     @Override
     public boolean isValid(ShortMidiMessage msg) {
-        return Arrays.stream(new Integer[]{BUTTON_CYCLE_STATE}).anyMatch(code -> msg.getData1() == code);
+        return Arrays.stream(new Integer[]{BUTTON_CYCLE_STATE, BUTTON_SET_STATE}).anyMatch(code -> msg.getData1() == code);
     }
 
 }

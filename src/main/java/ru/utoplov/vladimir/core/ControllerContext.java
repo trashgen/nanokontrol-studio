@@ -3,15 +3,41 @@ package ru.utoplov.vladimir.core;
 import com.bitwig.extension.controller.api.*;
 import ru.utoplov.vladimir.controlset.stateset.MixStateControlSet;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ControllerContext {
+
+    public class ActiveRemote {
+        public CursorRemoteControlsPage First;
+        public CursorRemoteControlsPage Second;
+
+        ActiveRemote(CursorRemoteControlsPage first, CursorRemoteControlsPage second) {
+            First = first;
+            Second = second;
+            for (int i = 0; i < First.getParameterCount(); i++) {
+                RemoteControl parameter = First.getParameter(i);
+                parameter.markInterested();
+                parameter.name().markInterested();
+                parameter.value().markInterested();
+            }
+            for (int i = 0; i < Second.getParameterCount(); i++) {
+                RemoteControl parameter = Second.getParameter(i);
+                parameter.markInterested();
+                parameter.name().markInterested();
+                parameter.value().markInterested();
+            }
+        }
+    }
 
     private static final int MIDI_CC_EVENT_ID = 0xB0;
 
     private static final String NANO_KONTROL_STUDIO_REMOTE_TAG_ONE = "trashgen_1";
     private static final String NANO_KONTROL_STUDIO_REMOTE_TAG_TWO = "trashgen_2";
+    private static final String NANO_KONTROL_STUDIO_REMOTE_TAG_THREE = "trashgen_3";
+    private static final String NANO_KONTROL_STUDIO_REMOTE_TAG_FOUR = "trashgen_4";
 
     private static final String NANO_KONTROL_STUDIO_DEVICE_ID = "NANO_KONTROL_STUDIO_DEVICE_ID";
     private static final String NANO_KONTROL_STUDIO_DEVICE_NAME = "NANO_KONTROL_STUDIO_DEVICE_NAME";
@@ -22,12 +48,15 @@ public class ControllerContext {
     private MidiOut midiOut;
     private final Map<Integer, Boolean> controlStates = new HashMap<>();
 
+    public ActiveRemote remote;
+    private int currentRemoteSetID = -1;
+    private final List<ActiveRemote> remotes = new ArrayList<>();
+
     public Transport transport;
     public TrackBank trackBank;
+    public DeviceBank deviceBank;
     public CursorTrack cursorTrack;
     public PinnableCursorDevice cursorDevice;
-    public CursorRemoteControlsPage controlsOne;
-    public CursorRemoteControlsPage controlsTwo;
     public double ArrangementPosition;
 
     public ControllerContext(MidiOut midiOut, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
@@ -36,29 +65,29 @@ public class ControllerContext {
         this.trackBank = trackBank;
         this.cursorTrack = cursorTrack;
 
-        cursorDevice = cursorTrack.createCursorDevice(NANO_KONTROL_STUDIO_DEVICE_ID, NANO_KONTROL_STUDIO_DEVICE_NAME, 0, CursorDeviceFollowMode.FOLLOW_SELECTION);
-        cursorDevice.name().markInterested();
-        cursorDevice.isNested().markInterested();
-        cursorDevice.isEnabled().markInterested();
-        cursorDevice.isWindowOpen().markInterested();
-
-        controlsOne = cursorDevice.createCursorRemoteControlsPage(NANO_KONTROL_STUDIO_DEVICE_CONTROL_NAME_ONE, 8, NANO_KONTROL_STUDIO_REMOTE_TAG_ONE);
-        for (int i = 0; i < controlsOne.getParameterCount(); i++) {
-            RemoteControl parameter = controlsOne.getParameter(i);
-            parameter.markInterested();
-            parameter.name().markInterested();
-            parameter.value().markInterested();
-        }
-
-        controlsTwo = cursorDevice.createCursorRemoteControlsPage(NANO_KONTROL_STUDIO_DEVICE_CONTROL_NAME_TWO, 8, NANO_KONTROL_STUDIO_REMOTE_TAG_TWO);
-        for (int i = 0; i < controlsTwo.getParameterCount(); i++) {
-            RemoteControl parameter = controlsTwo.getParameter(i);
-            parameter.markInterested();
-            parameter.name().markInterested();
-            parameter.value().markInterested();
-        }
-
         init();
+        setRemoteControls();
+    }
+
+    public void setRemoteControls() {
+        currentRemoteSetID = 0;
+        remote = remotes.get(currentRemoteSetID);
+    }
+
+    public void nextRemoteControls() {
+        ++currentRemoteSetID;
+        if (currentRemoteSetID == remotes.size()) {
+            currentRemoteSetID = 0;
+        }
+        remote = remotes.get(currentRemoteSetID);
+    }
+
+    public void prevRemoteControls() {
+        --currentRemoteSetID;
+        if (currentRemoteSetID < 0) {
+            currentRemoteSetID = remotes.size() - 1;
+        }
+        remote = remotes.get(currentRemoteSetID);
     }
 
     public void resetState() {
@@ -146,6 +175,17 @@ public class ControllerContext {
         transport.getInPosition().markInterested();
         transport.isArrangerRecordEnabled().markInterested();
 
+        cursorDevice = cursorTrack.createCursorDevice(NANO_KONTROL_STUDIO_DEVICE_ID, NANO_KONTROL_STUDIO_DEVICE_NAME, 0, CursorDeviceFollowMode.FOLLOW_SELECTION);
+        cursorDevice.name().markInterested();
+        cursorDevice.isNested().markInterested();
+        cursorDevice.isEnabled().markInterested();
+        cursorDevice.isWindowOpen().markInterested();
+
+        deviceBank = cursorTrack.createDeviceBank(32);
+//        for (int i = 0; i < deviceBank.getSizeOfBank(); i++) {
+//            deviceBank.getDevice(i).
+//        }
+
         for (int i = 0; i < trackBank.getSizeOfBank(); i++) {
             Parameter parameter = trackBank.getItemAt(i).volume();
             parameter.markInterested();
@@ -159,5 +199,14 @@ public class ControllerContext {
             send.value().markInterested();
         }
 
+        remotes.add(new ActiveRemote(
+                cursorDevice.createCursorRemoteControlsPage(NANO_KONTROL_STUDIO_DEVICE_CONTROL_NAME_ONE, 8, NANO_KONTROL_STUDIO_REMOTE_TAG_ONE),
+                cursorDevice.createCursorRemoteControlsPage(NANO_KONTROL_STUDIO_DEVICE_CONTROL_NAME_TWO, 8, NANO_KONTROL_STUDIO_REMOTE_TAG_TWO)
+        ));
+        remotes.add(new ActiveRemote(
+                cursorDevice.createCursorRemoteControlsPage(NANO_KONTROL_STUDIO_DEVICE_CONTROL_NAME_ONE, 8, NANO_KONTROL_STUDIO_REMOTE_TAG_THREE),
+                cursorDevice.createCursorRemoteControlsPage(NANO_KONTROL_STUDIO_DEVICE_CONTROL_NAME_TWO, 8, NANO_KONTROL_STUDIO_REMOTE_TAG_FOUR)
+        ));
     }
+
 }

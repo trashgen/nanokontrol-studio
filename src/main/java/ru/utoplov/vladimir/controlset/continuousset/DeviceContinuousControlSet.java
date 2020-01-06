@@ -26,12 +26,12 @@ public class DeviceContinuousControlSet extends AbstractControlSet {
 
     @Override
     public void updateIndication(boolean enabled) {
-        for (int i = 0; i < cc.controlsOne.getParameterCount(); i++) {
-            RemoteControl parameter = cc.controlsOne.getParameter(i);
+        for (int i = 0; i < cc.remote.First.getParameterCount(); i++) {
+            RemoteControl parameter = cc.remote.First.getParameter(i);
             parameter.setIndication(enabled);
         }
-        for (int i = 0; i < cc.controlsTwo.getParameterCount(); i++) {
-            RemoteControl parameter = cc.controlsTwo.getParameter(i);
+        for (int i = 0; i < cc.remote.Second.getParameterCount(); i++) {
+            RemoteControl parameter = cc.remote.Second.getParameter(i);
             parameter.setIndication(enabled);
         }
     }
