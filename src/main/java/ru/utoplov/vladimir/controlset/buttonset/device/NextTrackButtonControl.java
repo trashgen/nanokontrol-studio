@@ -13,6 +13,9 @@ public class NextTrackButtonControl extends ButtonControl {
 
     @Override
     protected void logic() {
-        cc.nextRemoteControls();
+        cc.remote.nextRemoteControls();
+        cc.scene.cleanUp();
+        cc.scene.init();
+        cc.showMappingInfo();
     }
 }

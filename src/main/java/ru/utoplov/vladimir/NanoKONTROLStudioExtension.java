@@ -7,9 +7,6 @@ import com.bitwig.extension.controller.api.ControllerHost;
 
 public class NanoKONTROLStudioExtension extends ControllerExtension {
 
-    private static final String NANO_KONTROL_STUDIO_CURSOR_ID = "NANO_KONTROL_STUDIO_CURSOR_ID";
-    private static final String NANO_KONTROL_STUDIO_CURSOR_NAME = "NANO_KONTROL_STUDIO_CURSOR_NAME";
-
     private SceneManager sceneManager;
 
     NanoKONTROLStudioExtension(final NanoKONTROLStudioExtensionDefinition definition, final ControllerHost host) {
@@ -21,11 +18,7 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
         getHost().getMidiInPort(0).setMidiCallback((ShortMidiMessageReceivedCallback) this::onMidi0);
         getHost().getMidiInPort(0).setSysexCallback(this::onSysex0);
 
-        sceneManager = new SceneManager(
-                getHost().getMidiOutPort(0),
-                getHost().createTransport(),
-                getHost().createTrackBank(8, 0, 0, true),
-                getHost().createCursorTrack(NANO_KONTROL_STUDIO_CURSOR_ID, NANO_KONTROL_STUDIO_CURSOR_NAME, 8, 0, true));
+        sceneManager = new SceneManager(getHost());
 
         getHost().showPopupNotification("NanoKONTROL Studio Initialized");
         getHost().println("NanoKONTROL Studio Initialized");
@@ -35,9 +28,9 @@ public class NanoKONTROLStudioExtension extends ControllerExtension {
      * Called when we receive short MIDI message on port 0.
      */
     private void onMidi0(ShortMidiMessage msg) {
-        getHost().println(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
+//        getHost().println(String.format("%d [%d] -> [%d]:[%d]", msg.getStatusByte(), msg.getChannel(), msg.getData1(), msg.getData2()));
         if (!sceneManager.getCurrentScene().handleMidiCommand(msg)) {
-            getHost().errorln(String.format("Message [%d] not supported", msg.getData1()));
+            getHost().showPopupNotification(String.format("Message [%d] not supported", msg.getData1()));
         }
     }
 

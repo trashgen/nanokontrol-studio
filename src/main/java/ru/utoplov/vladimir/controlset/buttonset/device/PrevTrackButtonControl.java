@@ -13,6 +13,7 @@ public class PrevTrackButtonControl extends ButtonControl {
 
     @Override
     protected void logic() {
-        cc.prevRemoteControls();
+        cc.remote.prevRemoteControls();
+        cc.showMappingInfo();
     }
 }

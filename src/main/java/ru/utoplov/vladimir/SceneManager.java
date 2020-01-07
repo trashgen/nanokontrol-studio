@@ -1,9 +1,6 @@
 package ru.utoplov.vladimir;
 
-import com.bitwig.extension.controller.api.CursorTrack;
-import com.bitwig.extension.controller.api.MidiOut;
-import com.bitwig.extension.controller.api.TrackBank;
-import com.bitwig.extension.controller.api.Transport;
+import com.bitwig.extension.controller.api.ControllerHost;
 import ru.utoplov.vladimir.controlset.buttonset.DeviceButtonControlSet;
 import ru.utoplov.vladimir.controlset.buttonset.MixButtonControlSet;
 import ru.utoplov.vladimir.controlset.continuousset.DeviceContinuousControlSet;
@@ -22,14 +19,11 @@ import static ru.utoplov.vladimir.NanoKONTROLStudioExtensionDefinition.*;
 
 class SceneManager {
 
-    private Scene currentScene;
     private ControllerContext cc;
     private final Map<String, Scene> scenes = new HashMap<>();
 
-    SceneManager(MidiOut midiOut, Transport transport, TrackBank trackBank, CursorTrack cursorTrack) {
-        cc = new ControllerContext(midiOut, transport, trackBank, cursorTrack);
-        trackBank.followCursorTrack(cursorTrack);
-        cursorTrack.isPinned().markInterested();
+    SceneManager(ControllerHost host) {
+        cc = new ControllerContext(host);
         scenes.put(KEY_SCENE_MIX_FIRST, new MixScene()
                 .addControlSet(new MixButtonControlSet(cc))
                 .addControlSet(new MixContinuousControlSet(cc))
@@ -50,19 +44,19 @@ class SceneManager {
                 .addControlSet(new MixButtonControlSet(cc))
                 .addControlSet(new MixContinuousControlSet(cc))
                 .addControlSet(new MixStateControlSet(cc)));
-        currentScene = scenes.get(KEY_SCENE_MIX_FIRST);
+        cc.scene = scenes.get(KEY_SCENE_MIX_FIRST);
     }
 
     void onSceneChange(final String data) {
         cc.resetState();
 
-        currentScene.cleanUp();
-        currentScene = scenes.get(data);
-        currentScene.init();
+        cc.scene.cleanUp();
+        cc.scene = scenes.get(data);
+        cc.scene.init();
     }
 
     Scene getCurrentScene() {
-        return currentScene;
+        return cc.scene;
     }
 
 }

@@ -10,7 +10,7 @@ public class DeviceButtonControlSet extends AbstractControlSet {
     public DeviceButtonControlSet(ControllerContext cc) {
         super(cc);
 
-//        controls.put(SetButtonControl.BUTTON_ID, new SetButtonControl(cc));
+        controls.put(SetButtonControl.BUTTON_ID, new SetButtonControl(cc));
         controls.put(RewindDeviceButtonControl.BUTTON_ID, new RewindDeviceButtonControl(cc));
 
         controls.put(PrevMarkerButtonControl.BUTTON_ID, new PrevMarkerButtonControl(cc));
