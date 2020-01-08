@@ -13,7 +13,9 @@ public class PrevTrackButtonControl extends ButtonControl {
 
     @Override
     protected void logic() {
+        cc.scene.cleanUp();
         cc.remote.prevRemoteControls();
+        cc.scene.init();
         cc.showMappingInfo();
     }
 }

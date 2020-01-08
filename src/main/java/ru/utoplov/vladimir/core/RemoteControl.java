@@ -11,7 +11,7 @@ public class RemoteControl {
 
     private static final Map<String, List<String>> mappingNames = new HashMap<String, List<String>>() {{
         put("Polysynth", Arrays.asList("Oscillator", "Envelope", NOT_USED_PAGE, NOT_USED_PAGE, NOT_USED_PAGE));
-        put("Phase-4", Arrays.asList("Red", "Yellow", "Blue", "Magenta", "Misc"));
+        put("Phase-4", Arrays.asList("Red", "Blue", "Yellow", "Magenta", "Filter"));
     }};
 
     private static final String NANO_KONTROL_STUDIO_REMOTE_TAG_01 = "trashgen_1";

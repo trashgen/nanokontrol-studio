@@ -18,9 +18,7 @@ public class WheelForwardControl extends ContinuousControl {
     protected void logic(ShortMidiMessage msg) {
         int trackRecordPressedIndex = cc.getTrackRecordPressed();
         if (trackRecordPressedIndex == MixStateControlSet.BUTTON_TRACK_RECORD_STATE_NOT_PRESSED) {
-            if (cc.isCycleToggleStateActive()) {
-                cc.cursorTrack.volume().value().inc(1, 512);
-            } else if (cc.isSetPressed()) {
+            if (cc.isSetPressed()) {
                 cc.ArrangementPosition += 4;
                 cc.transport.setPosition(cc.ArrangementPosition);
             } else {
